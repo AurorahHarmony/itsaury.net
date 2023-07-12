@@ -1,0 +1,36 @@
+@font-face {
+    font-family: 'scriptoramaMarkdown';
+    src: url('/fonts/scriptorama-markdown-jf-regular.ttf') format("truetype");
+}
+
+$body-bg: #150021;
+$body-color: #fff;
+
+$primary: #9d0bb7;
+
+$font-family-base: 'Raleway', sans-serif;
+$headings-font-family: 'scriptoramaMarkdown', sans-serif;
+$line-height-base: 1.75;
+
+$link-color: #fff;
+
+@import 'sass/bootstrap/bootstrap.scss';
+
+.bg-gradient-deep-blue {
+    background: rgb(11, 77, 117);
+    background: radial-gradient(circle at 70vw, rgba(11, 77, 117, 1) 0%, rgba(12, 0, 23, 1) 100%);
+}
+
+.bg-gradient-deep-pink {
+    background: rgb(77, 0, 95);
+    background: radial-gradient(circle at 30vw, rgba(77, 0, 95, 1) 0%, rgba(12, 0, 23, 1) 100%);
+}
+
+.lift-on-hover {
+    transition-duration: 3000ms;
+    transition-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+
+    &:hover {
+        transform: scale(1.05);
+    }
+}
