@@ -1,6 +1,7 @@
 ---
 layout: layouts/text.njk
 title: Contact
+activeNav: Contact
 ---
 **Email:** [me@itsaury.net](mailto:me@itsaury.net)
 
