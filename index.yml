@@ -1,5 +1,4 @@
 layout: layouts/landing.njk
-title: This is my website
 activeNav: Home
 
 quickLinks:
