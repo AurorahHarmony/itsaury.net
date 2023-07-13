@@ -24,6 +24,11 @@
         </button>
         <div class="collapse navbar-collapse" id="primaryNav">
           <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+            {% for link in navigation %}
+              <li class="nav-item">
+                <a href="{{ link.href }}" class="nav-link">{{link.name}}</a>
+              </li>
+            {% endfor %}  
           </ul>
         </div>
       </div>
