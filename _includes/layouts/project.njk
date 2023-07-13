@@ -1,0 +1,20 @@
+---
+layout: ./base.njk
+---
+<div class="container py-5">
+    <a href="/projects" class="btn btn-outline-light btn-sm rounded-pill mb-2">&lt; All projects</a>
+    <div class="rounded-3 p-1" 
+    style="background:  {{background | formatGradient}}">
+        <div class="px-4 pt-4 pb-2">
+            <h1 class="mb-0 {% if icon %}d-none{% endif %}">{{ title }}</h1>
+            {% if icon %}
+                <img src="{{icon}}" alt="{{title}}" class="mt-1 mb-2" style="height: 50px; max-width: 100%;">
+            {% endif %}
+        </div>
+        <div class="bg-dark px-4 py-3 rounded-3" style="background-color: #242129e6 !important;">
+            {{ content | safe }}
+        </div>
+    </div>
+    <section>
+    </section>
+</div>
