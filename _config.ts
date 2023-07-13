@@ -1,10 +1,13 @@
 import lume from "lume/mod.ts";
 import imagick from "lume/plugins/imagick.ts";
 import sass from "lume/plugins/sass.ts";
+import sitemap from "lume/plugins/sitemap.ts";
 
-const site = lume();
+const site = lume({
+  location: new URL("https://itsaury.net"),
+});
 
-site.use(sass()).use(imagick());
+site.use(sass()).use(imagick()).use(sitemap());
 
 /** Generates a gradient for project cards */
 site.filter(
