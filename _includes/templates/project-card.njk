@@ -1,0 +1,16 @@
+<article class="col mb-3">
+    <a href="{{ project.url }}" class="d-block lift-on-hover text-decoration-none">
+        <div class="rounded-3 shadow-sm px-2 py-5 text-center" style="min-height: 12rem; background: {{project.background | formatGradient}}">
+            {% if project.icon %}
+                <img src="{{project.icon}}" alt="{{project.title}}" class="mt-2 mb-3" style="height: 50px; max-width: 100%;">
+            {% else %}
+                <p class="fs-2 fw-bold mt-2 mb-3" style="height: 50px; max-width: 100%;">{{ project.title }}</p>
+            {% endif %}
+            {% if not project.invertTitleColor %}
+                <p class="fw-light" style="text-shadow: 1px 1px 3px #000000aa;" >{{ project.subtitle }}</p>
+            {% else %}
+                <p class="fw-light text-dark">{{ project.subtitle }}</p>
+            {% endif %}
+        </div>
+    </a>
+</article>

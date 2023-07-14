@@ -4,22 +4,7 @@ title: Projects
 activeNav: Projects
 ---
 <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 mb-2">
-  {% for project in search.pages("type=project") %}
-    <article class="col mb-3">
-        <a href="{{ project.data.url }}" class="d-block lift-on-hover text-decoration-none">
-            <div class="rounded-3 shadow-sm px-2 py-5 text-center" style="min-height: 12rem; background: {{project.data.background | formatGradient}}">
-                {% if project.data.icon %}
-                  <img src="{{project.data.icon}}" alt="{{project.title}}" class="mt-2 mb-3" style="height: 50px; max-width: 100%;">
-                {% else %}
-                  <p class="fs-2 fw-bold mt-2 mb-3" style="height: 50px; max-width: 100%;">{{ project.data.title }}</p>
-                {% endif %}
-                {% if not project.data.invertTitleColor %}
-                  <p class="fw-light" style="text-shadow: 1px 1px 3px #000000aa;" >{{ project.data.subtitle }}</p>
-                {% else %}
-                  <p class="fw-light text-dark">{{ project.data.subtitle }}</p>
-                {% endif %}
-            </div>
-        </a>
-    </article>
+  {% for project in search.pages("type=project") | data %}
+    {% include "templates/project-card.njk" %}
   {% endfor %}
 </div>
