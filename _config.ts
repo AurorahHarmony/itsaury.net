@@ -1,5 +1,6 @@
 import lume from "lume/mod.ts";
 import imagick from "lume/plugins/imagick.ts";
+import metas from "lume/plugins/metas.ts";
 import sass from "lume/plugins/sass.ts";
 import sitemap from "lume/plugins/sitemap.ts";
 
@@ -13,6 +14,7 @@ const site = lume({
 site
   .use(sass())
   .use(imagick())
+  .use(metas())
   .use(sitemap({ query: "indexable!=false" }));
 
 /** Generates a gradient for project cards */
