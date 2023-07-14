@@ -25,6 +25,10 @@ site.filter(
   }
 );
 
+site.filter("currentYear", (): string => {
+  return new Date().getFullYear().toString();
+});
+
 site.copy("static", ".");
 
 export default site;
