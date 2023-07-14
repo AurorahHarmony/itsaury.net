@@ -5,6 +5,9 @@ import sitemap from "lume/plugins/sitemap.ts";
 
 const site = lume({
   location: new URL("https://itsaury.net"),
+  server: {
+    page404: "/404/",
+  },
 });
 
 site.use(sass()).use(imagick()).use(sitemap());
