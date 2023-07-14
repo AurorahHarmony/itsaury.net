@@ -10,7 +10,10 @@ const site = lume({
   },
 });
 
-site.use(sass()).use(imagick()).use(sitemap());
+site
+  .use(sass())
+  .use(imagick())
+  .use(sitemap({ query: "indexable!=false" }));
 
 /** Generates a gradient for project cards */
 site.filter(
