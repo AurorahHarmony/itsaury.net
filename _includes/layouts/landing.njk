@@ -19,6 +19,9 @@ layout: ./base.njk
     <div class="container text-center">
         <h2 class="mb-3">Featured Projects</h2>
         <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 justify-content-center mb-2">
+            {% for project in search.pages("type=project pinned=true") | data %}
+                {% include "templates/project-card.njk" %}
+            {% endfor %}
         </div>
         <p>
             <a href="/projects">View full portfolio</a>

@@ -2,6 +2,7 @@
 title: TailPlume
 subtitle: Link in Bio / digital business cards
 icon: /img/projects/tailplume.webp
+pinned: true
 background:
   - percent: 0
     color: rgb(197 17 44)

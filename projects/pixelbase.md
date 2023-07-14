@@ -2,6 +2,7 @@
 title: PixelBase
 subtitle: Royalty free PBR textures
 icon: /img/projects/pixelbase.webp
+pinned: true
 background:
   - percent: 0
     color: rgba(99,24,195,1) 
