@@ -1,5 +1,19 @@
 .blog-post-content {
+    font-family: 'Roboto Slab', serif;
+    line-height: 2;
+    font-size: 1.1rem;
+    h1 {
+        margin-top: 2rem;
+    }
     h1, h2, h3, h4, h5, h6 {
         font-family: 'Raleway',sans-serif;
+        margin-bottom: 0;
+        margin-top: 1.5rem;
+    }
+
+    pre {
+        background-color: #300548;
+        border-radius: 1rem;
+        padding: 1rem;
     }
 }
