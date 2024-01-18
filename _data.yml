@@ -3,6 +3,8 @@ navigation:
     href: /
   - name: Projects
     href: /projects
+  - name: Resume
+    href: /resume
   - name: Contact
     href: /contact
 metas:
