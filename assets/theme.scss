@@ -25,6 +25,11 @@ $link-color: #fff;
     background: radial-gradient(circle at 30vw, rgba(77, 0, 95, 1) 0%, rgba(12, 0, 23, 1) 100%);
 }
 
+.bg-gradient-vibrant-purple {
+    background: rgb(119 0 206);
+    background: radial-gradient(circle at 70vw, rgb(119 0 206) 0%, rgb(12, 0, 23) 100%)
+}
+
 .lift-on-hover {
     transition-duration: 3000ms;
     transition-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
@@ -32,4 +37,8 @@ $link-color: #fff;
     &:hover {
         transform: scale(1.05);
     }
+}
+
+.font-base {
+    font-family: 'Raleway', sans-serif;
 }

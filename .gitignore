@@ -2,3 +2,6 @@
 _site
 _cache
 deno.lock
+
+# MacOS
+.DS_Store

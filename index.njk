@@ -14,52 +14,71 @@ quickLinks:
     image: /img/quick-links/mastodon.webp
     iconHeight: 60
     url: https://pony.social/@aurorahHarmony
+  - name: TailPlume
+    image: /img/quick-links/tailplume.webp
+    iconHeight: 60
+    url: https://tailplu.me/aurorah
   - name: Ko-Fi
     image: /img/quick-links/kofi.webp
     iconHeight: 60
     url: https://ko-fi.com/aurorahHarmony
 ---
+
 <div class="bg-gradient-deep-pink pt-5">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md text-center text-md-start d-flex flex-column justify-content-center">
-                    <h1 class="mb-0">Hi, I'm Aury!</h1>
-                    <p class="fs-4 fw-light mb-0">Software Engineer</p>
-                    <p class="fw-light">PHP, NodeJS, C++ and other languages.</p>
-            </div>
-            <div class="col-8 col-md-6 ms-md-auto">
-                <img src="/images/aury.png" alt="Aurorah the Synth" class="w-100 pe-none">
-            </div>
-        </div>
+  <div class="container">
+    <div class="row justify-content-center">
+      <div
+        class="col-md text-center text-md-start d-flex flex-column justify-content-center"
+      >
+        <h1 class="mb-0">Hi, I'm Aury!</h1>
+        <p class="fs-4 fw-light mb-0">Software Engineer</p>
+        <p class="fw-light">PHP, NodeJS, C++ and other languages.</p>
+      </div>
+      <div class="col-8 col-md-6 ms-md-auto">
+        <img
+          src="/images/aury.png"
+          alt="Aurorah the Synth"
+          class="w-100 pe-none"
+        />
+      </div>
     </div>
+  </div>
 </div>
 <div class="py-5">
-    <div class="container text-center">
-        <h2 class="mb-3">Featured Projects</h2>
-        <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 justify-content-center mb-2">
-            {% for project in search.pages("type=project pinned=true") | data %}
-                {% include "templates/project-card.njk" %}
-            {% endfor %}
-        </div>
-        <p>
-            <a href="/projects">View full portfolio</a>
-        </p>
+  <div class="container text-center">
+    <h2 class="mb-3">Featured Projects</h2>
+    <div
+      class="row row-cols-1 row-cols-md-2 row-cols-xl-3 justify-content-center mb-2"
+    >
+      {% for project in search.pages("type=project pinned=true") %}
+      {{ comp.projectCard({ project: project }) | safe }}
+      {% endfor %}
     </div>
+    <p>
+      <a href="/projects">View full portfolio</a>
+    </p>
+  </div>
 </div>
-<div class="bg-gradient-deep-blue py-5 text-center">
-    <div class="container">
-        <h2 class="mb-3">Quick Links</h2>
-        <div class="bg-light px-3 py-4 rounded-3 text-dark shadow-sm" style="background-color: #EAF3F8;">
-            <div class="row justify-content-center">
-                {% for link in quickLinks %}
-                    <div class="col-auto px-4 py-4 d-flex align-items-center">
-                        <a href="{{link.url}}" target="_blank" rel="noopener">
-                            <img src="{{link.image}}" alt="{{link.name}}" height="{{link.iconHeight or 40}}">
-                            
-                        </a>
-                    </div>
-                {% endfor %}
-            </div>
+<div class="bg-gradient-vibrant-purple py-5 text-center">
+  <div class="container">
+    <h2 class="mb-3">Quick Links</h2>
+    <div
+      class="bg-light px-3 py-4 rounded-3 text-dark shadow-sm"
+      style="background-color: #eaf3f8"
+    >
+      <div class="row justify-content-center">
+        {% for link in quickLinks %}
+        <div class="col-auto px-4 py-4 d-flex align-items-center">
+          <a href="{{ link.url }}" target="_blank" rel="noopener">
+            <img
+              src="{{ link.image }}"
+              alt="{{ link.name }}"
+              height="{{link.iconHeight or 40}}"
+            />
+          </a>
         </div>
+        {% endfor %}
+      </div>
     </div>
+  </div>
 </div>

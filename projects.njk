@@ -3,8 +3,9 @@ layout: layouts/text.njk
 title: Projects
 activeNav: Projects
 ---
+
 <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 mb-2">
-  {% for project in search.pages("type=project") | data %}
-    {% include "templates/project-card.njk" %}
+  {% for project in search.pages("type=project")%}
+  {{ comp.projectCard({ project: project }) | safe }}
   {% endfor %}
 </div>

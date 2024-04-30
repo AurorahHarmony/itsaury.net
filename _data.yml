@@ -5,6 +5,8 @@ navigation:
     href: /projects
   - name: Blog
     href: /blog
+  - name: Resume
+    href: /resume
   - name: Contact
     href: /contact
 metas:
