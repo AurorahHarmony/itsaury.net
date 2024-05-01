@@ -39,6 +39,13 @@ site.filter(
   }
 );
 
+/** Generates an excerpt from some text */
+site.filter("excerpt", (text: string, maxChars: number = 160) => {
+  if (text.length <= maxChars) return text;
+  const trimmedText = text.substring(0, maxChars);
+  return trimmedText.substring(0, trimmedText.lastIndexOf(" ")) + "...";
+});
+
 site.filter("currentYear", (): string => {
   return new Date().getFullYear().toString();
 });

@@ -17,6 +17,9 @@ activeNav: Blog
         <p class="mb-1 fw-light opacity-50">
           Read Time: {{ post.readingInfo.minutes }} minutes
         </p>
+        <p>
+          {{ post.excerpt | excerpt(150) }}
+        </p>
       </article>
       {% endfor %}
     </div>
