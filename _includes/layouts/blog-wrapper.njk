@@ -1,0 +1,17 @@
+---
+layout: layouts/base.njk
+inject:
+    head: |
+        <link href="/assets/blog-post.css" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap" rel="stylesheet">
+---
+<div class="bg-gradient-deep-pink pt-5 pb-1">
+    <div class="container">
+        <h1 class="mb-0">Blog</h1>
+        <p class="fs-4 fw-light mb-0">Aurorah Afterdark</p>
+        <p class="fw-light">A captivating journey of personal projects that transcend the night.</p>
+    </div>
+</div>
+{{ content | safe }}

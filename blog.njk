@@ -1,5 +1,27 @@
 ---
-layout: layouts/text.njk
+layout: layouts/blog-wrapper.njk
+activeNav: Blog
 ---
 
-A captivating journey of personal projects that transcend the night.
+<div class="container py-4">
+  <div class="row">
+    <div class="col-md-8">
+      {% for post in search.pages("type=blog-post", "date=desc") %}
+      <article class="mb-3">
+        <a
+          href="{{ post.url }}"
+          class="fs-3 text-decoration-none"
+          style="color: #da5fff"
+          >{{ post.title }}</a
+        >
+        <p class="mb-1 fw-light opacity-50">
+          Read Time: {{ post.readingInfo.minutes }} minutes
+        </p>
+        <p>
+          {{ post.excerpt | excerpt(150) }}
+        </p>
+      </article>
+      {% endfor %}
+    </div>
+  </div>
+</div>
