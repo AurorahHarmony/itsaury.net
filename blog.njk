@@ -2,16 +2,23 @@
 layout: layouts/blog-wrapper.njk
 activeNav: Blog
 ---
+
 <div class="container py-4">
-    <div class="row">
-        <div class="col-md-8">
-            {% for post in search.pages("type=blog-post") | data %}
-                <article class="mb-3">
-                    <a href="{{post.url}}" class="fs-3 text-decoration-none" style="color: #da5fff">{{post.title}}</a>
-                    {# <p class="mb-1 fw-light opacity-50">Read Time: 6 minutes</p> #}
-                    {# <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente harum molestiae voluptates voluptas expedita quo, quibusdam assumenda iste ex, totam quasi, culpa velit autem. Dicta culpa quo et animi modi?</p> #}
-                </article>
-            {% endfor %}
-        </div>
+  <div class="row">
+    <div class="col-md-8">
+      {% for post in search.pages("type=blog-post", "date=desc") %}
+      <article class="mb-3">
+        <a
+          href="{{ post.url }}"
+          class="fs-3 text-decoration-none"
+          style="color: #da5fff"
+          >{{ post.title }}</a
+        >
+        <p class="mb-1 fw-light opacity-50">
+          Read Time: {{ post.readingInfo.minutes }} minutes
+        </p>
+      </article>
+      {% endfor %}
     </div>
+  </div>
 </div>
