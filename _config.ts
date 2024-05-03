@@ -9,6 +9,7 @@ import text from "lume/core/loaders/text.ts";
 
 const site = lume({
   location: new URL("https://itsaury.net"),
+  src: "./src",
   server: {
     page404: "/404/",
   },
