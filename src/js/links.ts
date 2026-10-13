@@ -24,13 +24,20 @@ function fromPointer(e: PointerEvent) {
   );
 }
 
+let neutral: { gamma: number; beta: number } | null = null;
+
 function fromOrientation(e: DeviceOrientationEvent) {
   if (e.gamma == null || e.beta == null) return;
   lastInput = performance.now();
-  // Counter-rotate so the card stays level, like it's floating over the phone
+  // The pose when tracking starts is treated as level; tilt is measured from
+  // there, and the card counter-rotates as if floating over the phone
+  neutral ??= { gamma: e.gamma, beta: e.beta };
+  let dg = e.gamma - neutral.gamma;
+  if (dg > 180) dg -= 360;
+  if (dg < -180) dg += 360;
   setPose(
-    0.5 - clamp(e.gamma / 35, -1, 1) * 0.5,
-    0.5 - clamp((e.beta - 45) / 35, -1, 1) * 0.5,
+    0.5 - clamp(dg / 35, -1, 1) * 0.5,
+    0.5 - clamp((e.beta - neutral.beta) / 35, -1, 1) * 0.5,
     12,
   );
 }
