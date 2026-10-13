@@ -8,6 +8,8 @@ import metas from "lume/plugins/metas.ts";
 import readingInfo from "lume/plugins/reading_info.ts";
 import sitemap from "lume/plugins/sitemap.ts";
 import esbuild from "lume/plugins/esbuild.ts";
+import codeHighlight from "lume/plugins/code_highlight.ts";
+import feed from "lume/plugins/feed.ts";
 
 const site = lume({
   location: new URL("https://itsaury.net"),
@@ -22,13 +24,25 @@ site
   .use(tailwindcss())
   .use(postcss())
   .use(esbuild({ extensions: [".ts"] }))
+  .use(codeHighlight())
   .use(
     readingInfo({
-      extensions: [".mdx"],
+      extensions: [".mdx", ".md"],
       wordsPerMinute: 200,
     })
   );
 site.use(sitemap());
+site.use(
+  feed({
+    output: "/blog/feed.xml",
+    query: "type=blog-post",
+    info: {
+      title: "Aury's blog",
+      description: "Projects, prosthetics, synths and other things I make.",
+    },
+    items: { title: "=title", description: "=excerpt" },
+  }),
+);
 
 site.add("/styles.css");
 site.add("/js");

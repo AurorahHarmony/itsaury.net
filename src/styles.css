@@ -456,3 +456,56 @@ main :where(p, li, h1, h2) {
 main .text-gradient {
   text-shadow: none;
 }
+
+.lightbox {
+  margin: auto;
+  max-width: 94vw;
+  max-height: 94vh;
+  padding: 0;
+  background: transparent;
+  border: 1px solid color-mix(in oklab, var(--color-holo) 40%, transparent);
+  box-shadow: 0 0 60px -10px var(--color-magenta);
+}
+.lightbox::backdrop {
+  background: rgb(5 0 12 / 0.88);
+  backdrop-filter: blur(4px);
+}
+.lightbox img {
+  display: block;
+  max-width: 94vw;
+  max-height: 94vh;
+  cursor: zoom-out;
+}
+
+.hljs { color: var(--color-lavender); }
+.hljs-comment, .hljs-quote { color: color-mix(in oklab, var(--color-lavender) 50%, transparent); font-style: italic; }
+.hljs-keyword, .hljs-selector-tag, .hljs-built_in { color: var(--color-magenta); }
+.hljs-string, .hljs-attr, .hljs-addition { color: var(--color-sun); }
+.hljs-number, .hljs-literal, .hljs-symbol { color: var(--color-peach); }
+.hljs-title, .hljs-section, .hljs-function .hljs-title { color: var(--color-holo); }
+.hljs-type, .hljs-class .hljs-title { color: #9bf0b4; }
+.hljs-variable, .hljs-template-variable, .hljs-name, .hljs-tag { color: #ff9ce9; }
+.hljs-deletion { color: #ff7a8a; }
+
+.prose pre {
+  position: relative;
+  border: 1px solid color-mix(in oklab, var(--color-holo) 20%, transparent);
+  border-radius: 4px;
+}
+.prose :not(pre) > code::before,
+.prose :not(pre) > code::after { content: none; }
+.prose :not(pre) > code {
+  background: rgb(255 255 255 / 0.07);
+  padding: 0.1em 0.35em;
+}
+.copy-btn {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  @apply font-hud text-[0.6rem] tracking-widest text-holo uppercase;
+  background: rgb(5 0 12 / 0.8);
+  border: 1px solid color-mix(in oklab, var(--color-holo) 40%, transparent);
+  padding: 0.25rem 0.5rem;
+  cursor: pointer;
+}
+.prose img { border: 1px solid color-mix(in oklab, var(--color-holo) 20%, transparent); }
