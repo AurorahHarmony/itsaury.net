@@ -1,34 +1,31 @@
 ---
 title: PixelBase
 subtitle: Royalty free PBR textures
-icon: /img/projects/pixelbase.webp
+accent: "#8f6bff"
+accent2: "#5ef2ff"
+stack: [PBR textures, Web platform, Digital Ocean, Backblaze B2]
+status: In development
+url_external: https://pixelbase.org
 pinned: true
-background:
-  - percent: 0
-    color: rgba(99,24,195,1) 
-  - percent: 100
-    color: rgba(37,41,139,1)
+order: 2
 ---
-**What is it?**
-PixelBase is a PBR (Physics-Based Rendering) texture distribution platform.
-PixelBase aims to reduce barriers for solo game developers and visual effects artists by providing easy access to royalty free textures.
 
-**Why are you developing it?**
-When I first got into game development, I found it incredibly difficult to engage in the creative process due to the time and cost investments required to create each game asset.
+## What is it?
 
-Because of this, I decided I wanted to develop a platform where I could create game art assets that I could provide to the general public for free.
+PixelBase is a PBR (Physically Based Rendering) texture distribution platform. It aims to reduce barriers for solo game developers and visual effects artists by providing easy access to royalty free textures.
 
-**What is a "PBR" Texture?**
-A Physically-Based Rendering texture is a collection of images that when combined can create a virtual asset that simulates how light and shadows interact with real world objects.
+## Why am I developing it?
 
-**Where can I view PixelBase?**
-The web application is still in heavy development.
+When I first got into game development, I found it difficult to engage in the creative process because of the time and cost required to create each game asset. So I decided to build a platform where I could create game art assets and give them to the public for free.
 
-The development site can be found at: [https://pixelbase.org](https://pixelbase.org)
+## What is a PBR texture?
 
-Note: It may not be live 24/7 due to its developmental nature.
+A collection of images that, when combined, simulate how light and shadows interact with real world objects.
 
-**Future plans:**
-The development server is currently hosted on a Digital Ocean droplet. The goal is to move the stable version to the Azure App service with automated builds from GitHub.
+## Where can I see it?
 
-B2 object storage from BackBlaze will also be used as a cost effective method to store and distribute large PBR files.
+The web application is still in heavy development. The development site is at [pixelbase.org](https://pixelbase.org), though it may not be live 24/7.
+
+## Future plans
+
+The development server is hosted on a Digital Ocean droplet. The goal is to move the stable version to Azure App Service with automated builds from GitHub, and to use Backblaze B2 object storage to distribute large PBR files cheaply.

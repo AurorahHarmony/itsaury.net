@@ -1,2 +1,3 @@
 type: blog-post
-layout: layouts/blog-post.njk
+layout: blog-post.tsx
+tags: []

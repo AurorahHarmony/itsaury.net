@@ -1,2 +1,2 @@
 type: project
-layout: layouts/project.njk
+layout: project.tsx

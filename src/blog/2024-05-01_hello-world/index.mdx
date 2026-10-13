@@ -1,0 +1,40 @@
+---
+title: Hello World!
+date: 2024-05-01
+excerpt: A test post that shows off everything the blog can do.
+tags: [meta, test]
+---
+
+This is a placeholder post that exercises the blog components. Replace it with a real one.
+
+<comp.Callout title="SYS NOTE">
+Callouts are great for asides, warnings and "hey, this took me three days to figure out" moments.
+</comp.Callout>
+
+## Code
+
+```ts
+const greet = (name: string) => `Hello, ${name}!`;
+console.log(greet("world"));
+```
+
+## Images
+
+<comp.Figure src="/img/aury2.png" alt="Aury waving" caption="Figures take a caption and an optional width." />
+
+<comp.Gallery images={[
+  { src: "/img/aury.png", alt: "Pixel Aury", caption: "Pixel Aury" },
+  { src: "/img/aury2.png", alt: "Painted Aury", caption: "Painted Aury" },
+]} />
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+
+## Lists
+
+- Bullet points get magenta markers
+- Inline `code` is peach on a faint panel
+- Headings get anchors and appear in the contents box above
+
+### Sub-heading
+
+Third-level headings are indented in the table of contents.

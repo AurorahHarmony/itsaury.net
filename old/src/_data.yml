@@ -1,0 +1,29 @@
+navigation:
+  - name: Home
+    href: /
+  - name: Blog
+    href: /blog
+  - name: Projects
+    href: /projects
+  - name: Resume
+    href: /resume
+  - name: Contact
+    href: /contact
+metas:
+  site: It's Aury
+  description: Hi, I'm Aury! Software Engineer. PHP, NodeJS, C++ and other languages.
+  keywords:
+    [
+      software developer,
+      software blogger,
+      furry,
+      furry technologist,
+      c++,
+      nodejs,
+      devops,
+    ]
+  twitter: "@aurorahHarmony"
+  icon: /images/meta-default.jpg
+  color: "#150021"
+  robots: true
+  generator: false

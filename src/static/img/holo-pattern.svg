@@ -1,0 +1,159 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 360 360" width="360" height="360">
+  <defs>
+    <path id="sparkle" d="M0-7C1-2 2-1 7 0C2 1 1 2 0 7C-1 2-2 1-7 0C-2-1-1-2 0-7Z"/>
+    <g id="tomoe">
+      <circle cx="0" cy="-8.5" r="5" fill="#fff" fill-opacity="0.35"/>
+      <path d="M-5-8.5C-5-15 3-19 9-16.5C15-14 19-6 17.5 2"/>
+    </g>
+    <g id="corner">
+      <circle r="30" stroke-dasharray="0.01 5"/>
+      <circle r="22"/>
+      <use xlink:href="#sparkle" fill="#fff" fill-opacity="0.5"/>
+    </g>
+  </defs>
+
+  <g fill="none" stroke="#fff" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round">
+    <use xlink:href="#corner" x="0" y="0"/>
+    <use xlink:href="#corner" x="360" y="0"/>
+    <use xlink:href="#corner" x="0" y="360"/>
+    <use xlink:href="#corner" x="360" y="360"/>
+
+    <g opacity="0.45" stroke-dasharray="1 5">
+      <path d="M22 22L58 58M338 22L302 58M22 338L58 302M338 338L302 302"/>
+      <path d="M180 0V18M180 342V360M0 180H18"/>
+    </g>
+
+    <g>
+      <circle cx="180" cy="180" r="58" stroke-width="0.8"/>
+      <circle cx="180" cy="180" r="53" stroke-dasharray="0.01 6"/>
+      <circle cx="180" cy="180" r="44"/>
+      <g transform="translate(180 180)">
+        <path d="M0-44V-49M0 44V49M-44 0H-49M44 0H49M31.1-31.1L34.6-34.6M-31.1 31.1L-34.6 34.6M31.1 31.1L34.6 34.6M-31.1-31.1L-34.6-34.6"/>
+      </g>
+      <path d="M177.9 154.1A26 26 0 1 0 202.6 192.9A23 23 0 0 1 177.9 154.1Z" fill="#fff" fill-opacity="0.3"/>
+      <use xlink:href="#sparkle" x="198" y="168" fill="#fff"/>
+      <circle cx="210" cy="186" r="1.5" fill="#fff"/>
+      <circle cx="191" cy="152" r="1.1" fill="#fff"/>
+    </g>
+
+    <g>
+      <path d="M93 68L82 91H90L85 110L100 85H92L97 68Z" fill="#fff" fill-opacity="0.3"/>
+      <path d="M79 90C68 82 58 79 49 81M79 96C69 91 61 90 53 93M80 102C72 99 65 99 58 103"/>
+      <path d="M101 90C112 82 122 79 131 81M101 96C111 91 119 90 127 93M100 102C108 99 115 99 122 103"/>
+      <path d="M68 124Q90 106 112 124M73 126Q90 112 107 126M78 128Q90 118 102 128"/>
+    </g>
+
+    <g>
+      <circle cx="270" cy="98" r="15" stroke-dasharray="0.01 4.5"/>
+      <path d="M240 70Q270 63 300 70"/>
+      <path d="M244 77H296M247 87H293M270 77V87"/>
+      <path d="M254 77L251 118M286 77L289 118"/>
+    </g>
+
+    <g>
+      <circle cx="90" cy="270" r="32" stroke-dasharray="0.01 5"/>
+      <circle cx="90" cy="270" r="26"/>
+      <g transform="translate(90 270)">
+        <use xlink:href="#tomoe"/>
+        <use xlink:href="#tomoe" transform="rotate(120)"/>
+        <use xlink:href="#tomoe" transform="rotate(240)"/>
+      </g>
+    </g>
+
+    <g>
+      <path d="M262 302L270 244L278 302Z"/>
+      <path d="M263 292L277 287M265 281L276 276M266 270L274 266M268 259L272 256"/>
+      <path d="M244 290A30 30 0 0 1 252 250M288 250A30 30 0 0 1 296 290" stroke-dasharray="0.01 4.5"/>
+      <use xlink:href="#sparkle" x="246" y="254" transform="translate(246 254) scale(0.7) translate(-246 -254)" fill="#fff"/>
+      <use xlink:href="#sparkle" x="296" y="262" transform="translate(296 262) scale(0.55) translate(-296 -262)" fill="#fff"/>
+      <use xlink:href="#sparkle" x="292" y="300" transform="translate(292 300) scale(0.45) translate(-292 -300)" fill="#fff"/>
+    </g>
+
+    <g>
+      <path d="M160 40Q180 25 200 40Q180 55 160 40Z"/>
+      <circle cx="180" cy="40" r="6.5"/>
+      <circle cx="180" cy="40" r="2.2" fill="#fff"/>
+      <path d="M180 21V16M168 25L165 21M192 25L195 21"/>
+    </g>
+
+    <g>
+      <path d="M171 84C169 106 191 106 189 84"/>
+      <path d="M175.5 84C174.5 99 185.5 99 184.5 84"/>
+      <circle cx="172.2" cy="90" r="0.9" fill="#fff"/>
+      <circle cx="187.8" cy="90" r="0.9" fill="#fff"/>
+      <circle cx="174.5" cy="98" r="0.9" fill="#fff"/>
+      <circle cx="185.5" cy="98" r="0.9" fill="#fff"/>
+    </g>
+
+    <g transform="translate(180 272)">
+      <circle r="7"/>
+      <ellipse rx="17" ry="5" transform="rotate(-18)"/>
+      <circle cx="-26" cy="-8" r="1.2" fill="#fff"/>
+    </g>
+
+    <path d="M180 320C172 310 158 310 158 320C158 330 172 330 180 320C188 310 202 310 202 320C202 330 188 330 180 320Z"/>
+
+    <g transform="translate(40 180)">
+      <circle r="2.2" fill="#fff"/>
+      <ellipse rx="15" ry="5.5"/>
+      <ellipse rx="15" ry="5.5" transform="rotate(60)"/>
+      <ellipse rx="15" ry="5.5" transform="rotate(120)"/>
+    </g>
+
+    <g>
+      <path d="M314 196C314 190 316 188 318 185C321 180 320 173 316 168C312 163 303 162 298 166C294 169 293 174 294 178L291 183L294 184L294 188C294 190 296 191 299 191L300 196"/>
+      <g fill="#fff" stroke-width="0.6">
+        <path d="M303 174L309 171L313 177L307 181Z" fill="none"/>
+        <circle cx="303" cy="174" r="1.2"/>
+        <circle cx="309" cy="171" r="1.2"/>
+        <circle cx="313" cy="177" r="1.2"/>
+        <circle cx="307" cy="181" r="1.2"/>
+      </g>
+      <rect x="323" y="172" width="4" height="4" fill="#fff" fill-opacity="0.6"/>
+      <rect x="323" y="180" width="4" height="4"/>
+      <rect x="330" y="176" width="3.5" height="3.5" fill="#fff" fill-opacity="0.6"/>
+      <rect x="330" y="168" width="3" height="3"/>
+      <rect x="336" y="183" width="3" height="3" fill="#fff" fill-opacity="0.6"/>
+      <rect x="342" y="174" width="2.5" height="2.5"/>
+      <rect x="348" y="179" width="2" height="2" fill="#fff" fill-opacity="0.6"/>
+    </g>
+
+    <g stroke-width="0.8">
+      <path d="M238 180H256L263 173H278L283 178H287"/>
+      <circle cx="238" cy="180" r="1.6" fill="#fff"/>
+      <circle cx="287" cy="178" r="1.6"/>
+      <path d="M56 180H74L81 187H104L110 181H122"/>
+      <circle cx="56" cy="180" r="1.6"/>
+      <circle cx="122" cy="181" r="1.6" fill="#fff"/>
+      <path d="M180 238V250M180 122V110L186 104" opacity="0.8"/>
+      <circle cx="180" cy="250" r="1.4"/>
+      <path d="M270 118V132L262 140V160"/>
+      <circle cx="262" cy="160" r="1.4" fill="#fff"/>
+      <path d="M90 128V146L98 154V160"/>
+      <circle cx="98" cy="160" r="1.4" fill="#fff"/>
+    </g>
+
+    <g stroke-width="0.8" transform="translate(26 112)">
+      <path d="M0-6L5.2-3V3L0 6L-5.2 3V-3Z"/>
+      <path d="M10.4-6L15.6-3V3L10.4 6L5.2 3V-3Z" fill="#fff" fill-opacity="0.3"/>
+      <path d="M5.2 3L10.4 6V12L5.2 15L0 12V6Z"/>
+    </g>
+
+    <path d="M232 338q3.5-7 7 0t7 0 7 0 7 0 7 0 7 0 7 0 7 0" stroke-width="0.8" opacity="0.8"/>
+
+    <g fill="#fff" stroke="none">
+      <circle cx="132" cy="36" r="1.2"/>
+      <circle cx="228" cy="36" r="1"/>
+      <circle cx="36" cy="132" r="1"/>
+      <circle cx="36" cy="228" r="1.2"/>
+      <circle cx="324" cy="132" r="1.2"/>
+      <circle cx="324" cy="228" r="1"/>
+      <circle cx="132" cy="324" r="1"/>
+      <circle cx="228" cy="324" r="1.2"/>
+      <circle cx="128" cy="180" r="1"/>
+      <circle cx="232" cy="180" r="1"/>
+    </g>
+    <use xlink:href="#sparkle" x="0" y="0" transform="translate(138 222) scale(0.5)" fill="#fff"/>
+    <use xlink:href="#sparkle" x="0" y="0" transform="translate(222 138) scale(0.5)" fill="#fff"/>
+  </g>
+</svg>

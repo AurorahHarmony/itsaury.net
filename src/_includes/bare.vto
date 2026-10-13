@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>{{ metas.title }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#150021" />
+    <link rel="shortcut icon" href="/img/logo.png" type="image/x-icon" />
+    <script>document.documentElement.classList.add("js")</script>
+    <link rel="preload" href="/fonts/outfit.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/pixelify-sans.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="/styles.css" />
+    <script type="module" src="/js/backdrop.js"></script>
+  </head>
+  <body>
+    <canvas id="backdrop" aria-hidden="true"></canvas>
+    {{ content }}
+  </body>
+</html>
