@@ -1,56 +1,89 @@
 import lume from "lume/mod.ts";
-import transformImages from "lume/plugins/transform_images.ts";
+import date from "lume/plugins/date.ts";
+import jsx from "lume/plugins/jsx.ts";
+import mdx from "lume/plugins/mdx.ts";
+import tailwindcss from "lume/plugins/tailwindcss.ts";
+import postcss from "lume/plugins/postcss.ts";
 import metas from "lume/plugins/metas.ts";
-import nunjucks from "lume/plugins/nunjucks.ts";
-import readInfo from "lume/plugins/reading_info.ts";
-import sass from "lume/plugins/sass.ts";
+import readingInfo from "lume/plugins/reading_info.ts";
 import sitemap from "lume/plugins/sitemap.ts";
-import text from "lume/core/loaders/text.ts";
+import esbuild from "lume/plugins/esbuild.ts";
 
 const site = lume({
   location: new URL("https://itsaury.net"),
   src: "./src",
-  server: {
-    page404: "/404/",
-  },
 });
 
 site
-  .use(sass())
-  .use(transformImages())
-  .use(nunjucks())
+  .use(date())
+  .use(jsx())
+  .use(mdx())
   .use(metas())
+  .use(tailwindcss())
+  .use(postcss())
+  .use(esbuild({ extensions: [".ts"] }))
   .use(
-    readInfo({
-      extensions: [".md", ".mdx"],
+    readingInfo({
+      extensions: [".mdx"],
+      wordsPerMinute: 200,
     })
-  )
-  .use(sitemap({ query: "indexable!=false" }));
+  );
+site.use(sitemap());
 
-/** Generates a gradient for project cards */
-site.filter(
-  "formatGradient",
-  (colorStops: { percent: string; color: string }[]) => {
-    if (Array.isArray(colorStops) && colorStops.length > 0) {
-      const stops = colorStops.map((stop) => `${stop.color} ${stop.percent}%`);
-      return `linear-gradient(59deg, ${stops.join(",")})`;
-    } else {
-      return "linear-gradient(59deg, rgba(99,24,195,1) 0%, rgba(37,41,139,1) 100%)";
-    }
-  }
-);
-
-/** Generates an excerpt from some text */
-site.filter("excerpt", (text: string, maxChars: number = 160) => {
-  if (text.length <= maxChars) return text;
-  const trimmedText = text.substring(0, maxChars);
-  return trimmedText.substring(0, trimmedText.lastIndexOf(" ")) + "...";
-});
-
-site.filter("currentYear", (): string => {
-  return new Date().getFullYear().toString();
-});
-
+site.add("/styles.css");
+site.add("/js");
 site.copy("static", ".");
+
+// Takes in a kebab case string from the basename and converts it into title form
+const kebabToTitle = (input: string) => {
+  const words = input.toLowerCase().split("-");
+  return (
+    words[0].charAt(0).toUpperCase() +
+    words[0].slice(1) +
+    (words.length > 1 ? " " + words.slice(1).join(" ") : "")
+  );
+};
+
+// Generates titles for Metadata
+site.preprocess([".vto", ".mdx", ".page.tsx"], (pages) => {
+  for (const page of pages) {
+    page.data.metas.title = "Aury";
+    if (page.data.url === "/") {
+      continue;
+    }
+
+    if (!page.data.title) {
+      page.data.title = kebabToTitle(page.data.basename);
+    }
+
+    page.data.metas.title += " | " + page.data.title;
+  }
+});
+
+const getCommitInfo = async () => {
+  let commitHash = "";
+  try {
+    const cmd = new Deno.Command("git", {
+      args: ["rev-parse", "HEAD"],
+    });
+    const { stdout } = await cmd.output();
+    commitHash = new TextDecoder().decode(stdout).trim();
+  } catch {
+    console.warn("Could not retrieve git commit hash");
+  }
+
+  const repo = "https://github.com/aurorahHarmony/itsaury.net";
+
+  const info = {
+    hash: commitHash,
+    shortHash: commitHash.slice(0, 7),
+    repo,
+    commitUrl: commitHash ? `${repo}/commit/${commitHash}` : null,
+  };
+
+  return info;
+};
+
+site.data("git", await getCommitInfo());
 
 export default site;
