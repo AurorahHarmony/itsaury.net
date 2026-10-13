@@ -1,2 +1,4 @@
 type: project
 layout: project.tsx
+metas:
+  description: "=subtitle"

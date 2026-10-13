@@ -12,3 +12,26 @@ navigation:
     href: /links/
   - name: Contact
     href: /contact/
+
+metas:
+  site: "It's Aury"
+  title: "=title || It's Aury"
+  description: "Hi, I'm Aury! Software engineer, synth creature, and lover of dreams and stars from New Zealand."
+  image: /img/og-default.png
+  icon: /img/logo.png
+  lang: en
+  twitter: "@aurorahHarmony"
+  fediverse: "@aurorahHarmony@pony.social"
+  keywords:
+    [
+      software developer,
+      software blogger,
+      furry,
+      furry technologist,
+      c++,
+      nodejs,
+      devops,
+    ]
+  color: "#150021"
+  robots: true
+  generator: true

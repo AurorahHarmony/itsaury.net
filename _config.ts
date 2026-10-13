@@ -77,32 +77,6 @@ site.add("/styles.css");
 site.add("/js");
 site.copy("static", ".");
 
-// Takes in a kebab case string from the basename and converts it into title form
-const kebabToTitle = (input: string) => {
-  const words = input.toLowerCase().split("-");
-  return (
-    words[0].charAt(0).toUpperCase() +
-    words[0].slice(1) +
-    (words.length > 1 ? " " + words.slice(1).join(" ") : "")
-  );
-};
-
-// Generates titles for Metadata
-site.preprocess([".vto", ".mdx", ".page.tsx"], (pages) => {
-  for (const page of pages) {
-    page.data.metas.title = "Aury";
-    if (page.data.url === "/") {
-      continue;
-    }
-
-    if (!page.data.title) {
-      page.data.title = kebabToTitle(page.data.basename);
-    }
-
-    page.data.metas.title += " | " + page.data.title;
-  }
-});
-
 const getCommitInfo = async () => {
   let commitHash = "";
   try {

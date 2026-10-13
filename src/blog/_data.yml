@@ -1,3 +1,6 @@
 type: blog-post
 layout: blog-post.tsx
 tags: []
+metas:
+  type: article
+  description: "=excerpt || $ p"
