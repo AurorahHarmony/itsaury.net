@@ -44,6 +44,35 @@ site.use(
   }),
 );
 
+site.process([".html"], (pages) => {
+  for (const page of pages) {
+    if (page.data.type !== "blog-post") continue;
+    const prose = page.document?.querySelector(".prose");
+    const heads = prose ? [...prose.querySelectorAll("h2, h3")] : [];
+    if (!prose || heads.length < 3) continue;
+
+    const used = new Set<string>();
+    const items = heads.map((h) => {
+      const text = h.textContent.trim();
+      const base = h.id ||
+        text.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+      let id = base;
+      for (let n = 2; used.has(id); n++) id = `${base}-${n}`;
+      used.add(id);
+      h.id = id;
+      const depth = h.tagName === "H3" ? ' class="toc-sub"' : "";
+      return `<li${depth}><a href="#${id}">${text}</a></li>`;
+    });
+
+    const nav = page.document!.createElement("nav");
+    nav.className = "toc holo-panel";
+    nav.setAttribute("aria-label", "Table of contents");
+    nav.innerHTML =
+      `<p class="hud-label">Contents</p><ul>${items.join("")}</ul>`;
+    prose.parentElement!.before(nav);
+  }
+});
+
 site.add("/styles.css");
 site.add("/js");
 site.copy("static", ".");

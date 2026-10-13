@@ -657,3 +657,23 @@ main .text-gradient {
 [hidden] {
   display: none !important;
 }
+
+.toc {
+  margin-bottom: 1.5rem;
+  padding: 1rem 1.25rem;
+}
+.toc ul {
+  margin-top: 0.5rem;
+  display: grid;
+  gap: 0.25rem;
+  font-size: 0.9rem;
+}
+.toc a {
+  @apply text-lavender no-underline;
+  &:hover {
+    @apply text-holo;
+  }
+}
+.toc .toc-sub {
+  padding-left: 1rem;
+}
