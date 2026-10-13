@@ -44,7 +44,7 @@ if (card) {
       requestAnimationFrame(drift);
       if (now - lastInput < 2500) return;
       const t = now / 1000;
-      setPose(0.5 + Math.sin(t * 0.55) * 0.38, 0.5 + Math.cos(t * 0.4) * 0.3);
+      setPose(0.5 + Math.sin(t * 0.22) * 0.26, 0.5 + Math.cos(t * 0.16) * 0.2, 3);
     };
     requestAnimationFrame(drift);
   }

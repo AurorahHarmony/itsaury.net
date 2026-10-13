@@ -680,19 +680,20 @@ main .text-gradient {
 }
 
 .holo-insignia {
-  background: linear-gradient(
+  background: repeating-linear-gradient(
     115deg,
-    transparent 18%,
-    #ff4fd8 30%,
-    #ffd36e 36%,
-    #5ef2ff 46%,
-    #8f6bff 54%,
-    transparent 64%
+    #ff4fd8 0%,
+    #ffd36e 7%,
+    #7dff9c 14%,
+    #5ef2ff 21%,
+    #8f6bff 28%,
+    #ff4fd8 35%
   );
-  background-size: 320% 320%;
+  background-size: 220% 220%;
   background-position: var(--mx) var(--my);
-  -webkit-mask: url(/img/holo-pattern.svg) calc(var(--mx) * -0.1) calc(var(--my) * -0.1) / 190px 190px repeat;
-  mask: url(/img/holo-pattern.svg) calc(var(--mx) * -0.1) calc(var(--my) * -0.1) / 190px 190px repeat;
+  -webkit-mask: url(/img/holo-pattern.svg) calc(var(--mx) * -0.12) calc(var(--my) * -0.12) / 300px 300px repeat;
+  mask: url(/img/holo-pattern.svg) calc(var(--mx) * -0.12) calc(var(--my) * -0.12) / 300px 300px repeat;
   mix-blend-mode: color-dodge;
-  opacity: calc(var(--o) * 0.3);
+  filter: saturate(1.4);
+  opacity: calc(var(--o) * 0.42);
 }
