@@ -556,6 +556,7 @@ main .text-gradient {
   padding: 1.25rem;
   background: linear-gradient(160deg, #1d0838, #0b0016 75%);
 }
+.holo-insignia,
 .holo-foil,
 .holo-sparkle,
 .holo-glare {
@@ -676,4 +677,22 @@ main .text-gradient {
 }
 .toc .toc-sub {
   padding-left: 1rem;
+}
+
+.holo-insignia {
+  background: linear-gradient(
+    115deg,
+    transparent 18%,
+    #ff4fd8 30%,
+    #ffd36e 36%,
+    #5ef2ff 46%,
+    #8f6bff 54%,
+    transparent 64%
+  );
+  background-size: 320% 320%;
+  background-position: var(--mx) var(--my);
+  -webkit-mask: url(/img/holo-pattern.svg) calc(var(--mx) * -0.1) calc(var(--my) * -0.1) / 190px 190px repeat;
+  mask: url(/img/holo-pattern.svg) calc(var(--mx) * -0.1) calc(var(--my) * -0.1) / 190px 190px repeat;
+  mix-blend-mode: color-dodge;
+  opacity: calc(var(--o) * 0.3);
 }

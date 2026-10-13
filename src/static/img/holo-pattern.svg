@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <g fill="none" stroke="#fff" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="100" cy="100" r="92" stroke-dasharray="1.5 3.5" opacity="0.8"/>
+    <circle cx="100" cy="100" r="86" opacity="0.5"/>
+    <g opacity="0.9">
+      <path d="M100 8v6M100 186v6M8 100h6M186 100h6M165 35l-4 4M35 165l4-4M35 35l4 4M165 165l-4-4"/>
+    </g>
+
+    <path d="M100 82l16 28H84z"/>
+    <circle cx="100" cy="101" r="5.5"/>
+    <circle cx="100" cy="101" r="1.4" fill="#fff"/>
+
+    <g>
+      <path d="M26 66L40 34 66 28 80 52 62 72zM40 34L62 72M66 28L80 52"/>
+      <circle cx="26" cy="66" r="1.8" fill="#fff"/>
+      <circle cx="40" cy="34" r="1.8" fill="#fff"/>
+      <circle cx="66" cy="28" r="2.4" fill="#fff"/>
+      <circle cx="80" cy="52" r="1.8" fill="#fff"/>
+      <circle cx="62" cy="72" r="1.8" fill="#fff"/>
+      <path d="M66 22v12M60 28h12" opacity="0.8"/>
+    </g>
+
+    <g>
+      <circle cx="148" cy="54" r="3" fill="#fff"/>
+      <circle cx="148" cy="54" r="12"/>
+      <circle cx="148" cy="54" r="22" stroke-dasharray="2 2.5"/>
+      <ellipse cx="148" cy="54" rx="30" ry="9" transform="rotate(-28 148 54)"/>
+      <circle cx="165.5" cy="40.5" r="2.2" fill="#fff"/>
+      <circle cx="130" cy="72" r="1.4" fill="#fff"/>
+    </g>
+
+    <g>
+      <circle cx="148" cy="148" r="10"/>
+      <circle cx="148" cy="138" r="10"/>
+      <circle cx="148" cy="158" r="10"/>
+      <circle cx="157.7" cy="143" r="10"/>
+      <circle cx="157.7" cy="153" r="10"/>
+      <circle cx="138.3" cy="143" r="10"/>
+      <circle cx="138.3" cy="153" r="10"/>
+      <circle cx="148" cy="148" r="30" stroke-dasharray="0.5 3"/>
+    </g>
+
+    <g>
+      <path d="M30 150l20-8 22 10-10 22-26 4z"/>
+      <path d="M50 142l12 32M30 150l16 26"/>
+      <circle cx="30" cy="150" r="2" fill="#fff"/>
+      <circle cx="50" cy="142" r="2" fill="#fff"/>
+      <circle cx="72" cy="152" r="2" fill="#fff"/>
+      <circle cx="62" cy="174" r="2" fill="#fff"/>
+      <circle cx="36" cy="178" r="2" fill="#fff"/>
+    </g>
+
+    <g stroke-width="0.9">
+      <rect x="24" y="108" width="4.5" height="4.5" fill="#fff"/>
+      <rect x="30.5" y="108" width="4.5" height="4.5"/>
+      <rect x="37" y="108" width="4.5" height="4.5" fill="#fff"/>
+      <rect x="43.5" y="108" width="4.5" height="4.5" fill="#fff"/>
+      <rect x="50" y="108" width="4.5" height="4.5"/>
+      <rect x="56.5" y="108" width="4.5" height="4.5"/>
+      <rect x="63" y="108" width="4.5" height="4.5" fill="#fff"/>
+      <rect x="69.5" y="108" width="4.5" height="4.5"/>
+    </g>
+
+    <path d="M118 128a8 8 0 0 1 8-8a5 5 0 0 1 5 5a3 3 0 0 1-3 3a2 2 0 0 1-2-2a1 1 0 0 1 1-1" opacity="0.9"/>
+  </g>
+  <g fill="#fff" font-family="Georgia, 'Times New Roman', serif" text-anchor="middle">
+    <text x="100" y="52" font-size="17">Ψ</text>
+    <text x="100" y="178" font-size="19">∞</text>
+    <text x="44" y="98" font-size="14">π</text>
+    <text x="156" y="104" font-size="15">∑</text>
+    <text x="72" y="130" font-size="11">φ</text>
+    <text x="128" y="26" font-size="7" font-family="monospace">iπ+1=0</text>
+  </g>
+</svg>

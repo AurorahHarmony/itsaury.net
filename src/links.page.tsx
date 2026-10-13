@@ -98,6 +98,7 @@ export default (data: Lume.Data) => {
                 Tap to activate shine
               </button>
             </div>
+            <div class="holo-insignia" aria-hidden="true"></div>
             <div class="holo-foil" aria-hidden="true"></div>
             <div class="holo-sparkle" aria-hidden="true"></div>
             <div class="holo-glare" aria-hidden="true"></div>
