@@ -509,3 +509,21 @@ main .text-gradient {
   cursor: pointer;
 }
 .prose img { border: 1px solid color-mix(in oklab, var(--color-holo) 20%, transparent); }
+
+.icon {
+  display: inline-block;
+  width: 1.1em;
+  height: 1.1em;
+  flex: none;
+  background: currentColor;
+  mask: var(--icon) center / contain no-repeat;
+  -webkit-mask: var(--icon) center / contain no-repeat;
+}
+
+@media print {
+  html, body { background: #fff !important; color: #000 !important; }
+  #backdrop, header, footer { display: none !important; }
+  * { color: #000 !important; text-shadow: none !important; box-shadow: none !important; }
+  .holo-panel { background: none !important; border: 1px solid #999 !important; backdrop-filter: none; }
+  .holo-panel::before, .holo-panel::after { display: none; }
+}
