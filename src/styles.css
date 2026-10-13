@@ -547,7 +547,7 @@ main .text-gradient {
   background: linear-gradient(135deg, var(--color-magenta), var(--color-holo), var(--color-violet));
   box-shadow:
     0 24px 60px -24px rgb(255 79 216 / 0.7),
-    calc(var(--ry) * -2) calc(var(--rx) * 2) 40px -12px rgb(94 242 255 / 0.25);
+    calc(var(--ry) * -3) calc(var(--rx) * 3) 40px -12px rgb(94 242 255 / 0.25);
   will-change: transform;
 }
 .holo-card-inner {
@@ -652,4 +652,8 @@ main .text-gradient {
 .toast.show {
   opacity: 1;
   transform: translate(-50%, 0);
+}
+
+[hidden] {
+  display: none !important;
 }

@@ -4,13 +4,13 @@ const clamp = (v: number, min = 0, max = 1) => Math.min(max, Math.max(min, v));
 
 let lastInput = -Infinity;
 
-function setPose(px: number, py: number) {
+function setPose(px: number, py: number, amp = 6) {
   if (!card) return;
   const dist = Math.hypot(px - 0.5, py - 0.5) * 2;
   card.style.setProperty("--mx", `${(px * 100).toFixed(1)}%`);
   card.style.setProperty("--my", `${(py * 100).toFixed(1)}%`);
-  card.style.setProperty("--rx", `${((0.5 - py) * 16).toFixed(2)}deg`);
-  card.style.setProperty("--ry", `${((px - 0.5) * 16).toFixed(2)}deg`);
+  card.style.setProperty("--rx", `${((0.5 - py) * amp).toFixed(2)}deg`);
+  card.style.setProperty("--ry", `${((px - 0.5) * amp).toFixed(2)}deg`);
   card.style.setProperty("--o", clamp(0.45 + dist * 0.55).toFixed(2));
 }
 
@@ -30,6 +30,7 @@ function fromOrientation(e: DeviceOrientationEvent) {
   setPose(
     0.5 + clamp(e.gamma / 35, -1, 1) * 0.5,
     0.5 + clamp((e.beta - 45) / 35, -1, 1) * 0.5,
+    12,
   );
 }
 
@@ -55,12 +56,12 @@ if (card) {
   const enable = document.getElementById("enable-tilt");
   if (Orientation) {
     if (typeof Orientation.requestPermission === "function" && matchMedia("(pointer: coarse)").matches) {
-      enable?.classList.remove("hidden");
+      if (enable) enable.hidden = false;
       enable?.addEventListener("click", async () => {
         const result = await Orientation.requestPermission!();
         if (result === "granted") {
           globalThis.addEventListener("deviceorientation", fromOrientation);
-          enable.classList.add("hidden");
+          enable.hidden = true;
         }
       });
     } else if (typeof Orientation.requestPermission !== "function") {

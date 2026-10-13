@@ -92,7 +92,8 @@ export default (data: Lume.Data) => {
               <button
                 type="button"
                 id="enable-tilt"
-                class="btn-ghost mt-3 hidden w-full"
+                class="btn-ghost mt-3 w-full"
+                hidden
               >
                 Tap to activate shine
               </button>
