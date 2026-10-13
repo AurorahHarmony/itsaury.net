@@ -15,7 +15,7 @@ function setPose(px: number, py: number, amp = 6) {
 }
 
 function fromPointer(e: PointerEvent) {
-  if (!card) return;
+  if (!card || e.pointerType === "touch") return;
   const rect = card.getBoundingClientRect();
   lastInput = performance.now();
   setPose(
