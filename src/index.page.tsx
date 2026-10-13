@@ -1,13 +1,10 @@
+import { profile } from "./_data/socials.ts";
+
 export default (data: Lume.Data, filters: Lume.Helpers) => {
   const { comp, search } = data;
 
   const posts = search.pages("type=blog-post", "date=desc", 5);
   const projects = search.pages("type=project pinned=true", "order");
-  const pronouns = [
-    { label: "Xe/Xer", gradient: "from-purple-800 via-indigo-600 to-cyan-500" },
-    { label: "She/Her", gradient: "from-purple-800 to-pink-500" },
-    { label: "They/Them", gradient: "from-slate-600 to-zinc-400" },
-  ];
   const stats = [
     { label: "Class", value: "Software engineer" },
     { label: "Species", value: "Synth creature" },
@@ -62,7 +59,7 @@ export default (data: Lume.Data, filters: Lume.Helpers) => {
             <h2 class="text-3xl">Aurorah Harmony</h2>
             <p class="font-mono text-sm text-lavender/70">@aurorah</p>
             <ul class="mt-3 flex flex-wrap justify-center gap-1.5 md:justify-start">
-              {pronouns.map((p) => (
+              {profile.pronouns.map((p) => (
                 <li class={`rounded-full bg-gradient-to-tr px-2.5 py-0.5 text-sm text-white ${p.gradient}`}>
                   {p.label}
                 </li>
