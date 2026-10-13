@@ -27,9 +27,10 @@ function fromPointer(e: PointerEvent) {
 function fromOrientation(e: DeviceOrientationEvent) {
   if (e.gamma == null || e.beta == null) return;
   lastInput = performance.now();
+  // Counter-rotate so the card stays level, like it's floating over the phone
   setPose(
-    0.5 + clamp(e.gamma / 35, -1, 1) * 0.5,
-    0.5 + clamp((e.beta - 45) / 35, -1, 1) * 0.5,
+    0.5 - clamp(e.gamma / 35, -1, 1) * 0.5,
+    0.5 - clamp((e.beta - 45) / 35, -1, 1) * 0.5,
     12,
   );
 }
