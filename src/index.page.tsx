@@ -1,9 +1,21 @@
-import { Social } from "./_data/socials.ts";
-
 export default (data: Lume.Data, filters: Lume.Helpers) => {
-  const { comp, search, socials } = data;
+  const { comp, search } = data;
 
-  const posts = search.pages("type=blog-post", "date=desc", 8);
+  const posts = search.pages("type=blog-post", "date=desc", 5);
+  const projects = search.pages("type=project pinned=true", "order");
+  const pronouns = [
+    { label: "Xe/Xer", gradient: "from-purple-800 via-indigo-600 to-cyan-500" },
+    { label: "She/Her", gradient: "from-purple-800 to-pink-500" },
+    { label: "They/Them", gradient: "from-slate-600 to-zinc-400" },
+  ];
+  const stats = [
+    { label: "Class", value: "Software engineer" },
+    { label: "Species", value: "Synth creature" },
+    { label: "Home server", value: "New Zealand" },
+    { label: "Skills", value: "TypeScript, PHP, C++, Node.js" },
+    { label: "Hobbies", value: "3D printing, music, VR" },
+    { label: "Quest", value: "Prosthetic tail" },
+  ];
   return (
     <>
       <comp.Container class="grid items-center gap-10 pt-4 pb-16 md:grid-cols-[1fr_1.1fr] md:pt-10">
@@ -43,7 +55,44 @@ export default (data: Lume.Data, filters: Lume.Helpers) => {
         </div>
       </comp.Container>
 
-      <comp.Container class="grid gap-6 md:grid-cols-2">
+      <comp.Container class="mb-16">
+        <section class="holo-panel grid gap-6 p-6 md:grid-cols-[auto_1fr]">
+          <div class="text-center md:text-left">
+            <p class="hud-label mb-2">Character select</p>
+            <h2 class="text-3xl">Aurorah Harmony</h2>
+            <p class="font-mono text-sm text-lavender/70">@aurorah</p>
+            <ul class="mt-3 flex flex-wrap justify-center gap-1.5 md:justify-start">
+              {pronouns.map((p) => (
+                <li class={`rounded-full bg-gradient-to-tr px-2.5 py-0.5 text-sm text-white ${p.gradient}`}>
+                  {p.label}
+                </li>
+              ))}
+            </ul>
+          </div>
+          <dl class="grid gap-x-8 gap-y-3 font-mono text-sm sm:grid-cols-2">
+            {stats.map((stat) => (
+              <div>
+                <dt class="hud-label mb-0.5">{stat.label}</dt>
+                <dd class="text-ink">{stat.value}</dd>
+              </div>
+            ))}
+          </dl>
+        </section>
+      </comp.Container>
+
+      <comp.Container class="mb-16">
+        <div class="mb-5 flex items-end justify-between">
+          <h2 class="text-3xl">Featured projects</h2>
+          <a href="/projects/" class="link font-hud text-xs uppercase tracking-widest">
+            All projects
+          </a>
+        </div>
+        <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {projects.map((project) => <comp.ProjectCard project={project} />)}
+        </div>
+      </comp.Container>
+
+      <comp.Container class="mb-16 grid gap-6 md:grid-cols-2">
         <section class="holo-panel p-5">
           <h2 class="mb-3 text-2xl">Recent posts</h2>
           <ul class="space-y-1.5">
@@ -58,18 +107,16 @@ export default (data: Lume.Data, filters: Lume.Helpers) => {
               </li>
             ))}
           </ul>
+          <a href="/blog/" class="link mt-4 inline-block font-hud text-xs uppercase tracking-widest">
+            All posts
+          </a>
         </section>
-        <section class="holo-panel p-5">
-          <h2 class="mb-3 text-2xl">Quick links</h2>
-          <ul class="flex flex-wrap gap-2">
-            {socials.map((social: Social) => (
-              <li>
-                <a href={social.url} target="_blank" rel="noopener" class="btn-ghost">
-                  {social.name}
-                </a>
-              </li>
-            ))}
-          </ul>
+        <section class="holo-panel flex flex-col items-start p-5">
+          <h2 class="mb-2 text-2xl">Meeting me at a con?</h2>
+          <p class="mb-4 text-lavender/80">
+            Grab my holo card: every link in one place, with a QR code to scan.
+          </p>
+          <a href="/links/" class="btn-pixel mt-auto">Open the con card</a>
         </section>
       </comp.Container>
 
