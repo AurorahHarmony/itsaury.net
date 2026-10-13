@@ -3,17 +3,13 @@ import socials, { profile } from "./_data/socials.ts";
 export const title = "Links";
 export const layout = "bare.vto";
 
-const internal = [
-  { name: "Blog", icon: "link-45deg", url: "/blog/" },
-  { name: "Projects", icon: "link-45deg", url: "/projects/" },
-];
 
 export default (data: Lume.Data) => {
   const { comp, qr } = data;
   const links = [
-    ...socials.filter((s) => s.name !== "Email"),
+    ...socials.filter((s) => s.name !== "Email" && s.name !== "TailPlume"),
     { name: "Email", icon: "envelope-fill", url: `mailto:${profile.email}` },
-    ...internal,
+    { name: "Website", icon: "link-45deg", url: "https://itsaury.net", wide: true },
   ];
 
   return (
@@ -31,7 +27,7 @@ export default (data: Lume.Data) => {
                 <span class="icon !size-6" style="--icon: url(/icons/qr-code.svg)" aria-hidden="true" />
               </button>
 
-              <div class="relative mx-auto mb-3 w-4/5">
+              <div class="card-art relative mx-auto mb-3 w-4/5">
                 <comp.HoloArt
                   src="/img/aury2.png"
                   alt="Aury, a pink and purple winged synth creature"
@@ -43,7 +39,6 @@ export default (data: Lume.Data) => {
 
               <div class="mb-4 text-center">
                 <h1 class="text-2xl">{profile.name}</h1>
-                <p class="mb-2 font-mono text-sm text-lavender/70">{profile.handle}</p>
                 <ul class="mb-3 flex flex-wrap justify-center gap-1.5 text-sm">
                   {profile.pronouns.map((p) => (
                     <li class={`rounded-full bg-gradient-to-tr px-2.5 py-0.5 text-white ${p.gradient}`}>
@@ -60,7 +55,7 @@ export default (data: Lume.Data) => {
 
               <ul class="mb-4 grid grid-cols-2 gap-1.5">
                 {links.map((link) => (
-                  <li class={"copy" in link && link.copy ? "col-span-2" : ""}>
+                  <li class={"copy" in link && link.copy ? "col-span-2" : link.wide ? "col-span-2" : ""}>
                     {"url" in link && link.url
                       ? (
                         <a

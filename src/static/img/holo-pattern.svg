@@ -20,7 +20,7 @@
 
     <g opacity="0.45" stroke-dasharray="1 5">
       <path d="M22 22L58 58M338 22L302 58M22 338L58 302M338 338L302 302"/>
-      <path d="M180 0V18M180 342V360M0 180H18M342 180H360"/>
+      <path d="M180 0V18M180 342V360M0 180H18"/>
     </g>
 
     <g>
@@ -101,13 +101,45 @@
     </g>
 
     <g>
-      <circle cx="312" cy="180" r="9"/>
-      <circle cx="312" cy="180" r="3"/>
-      <rect x="325" y="177" width="5" height="5" fill="#fff" fill-opacity="0.6"/>
-      <rect x="333" y="172" width="4" height="4"/>
-      <rect x="333" y="184" width="4" height="4" fill="#fff" fill-opacity="0.6"/>
-      <rect x="340" y="178" width="3" height="3"/>
+      <path d="M314 196C314 190 316 188 318 185C321 180 320 173 316 168C312 163 303 162 298 166C294 169 293 174 294 178L291 183L294 184L294 188C294 190 296 191 299 191L300 196"/>
+      <g fill="#fff" stroke-width="0.6">
+        <path d="M303 174L309 171L313 177L307 181Z" fill="none"/>
+        <circle cx="303" cy="174" r="1.2"/>
+        <circle cx="309" cy="171" r="1.2"/>
+        <circle cx="313" cy="177" r="1.2"/>
+        <circle cx="307" cy="181" r="1.2"/>
+      </g>
+      <rect x="323" y="172" width="4" height="4" fill="#fff" fill-opacity="0.6"/>
+      <rect x="323" y="180" width="4" height="4"/>
+      <rect x="330" y="176" width="3.5" height="3.5" fill="#fff" fill-opacity="0.6"/>
+      <rect x="330" y="168" width="3" height="3"/>
+      <rect x="336" y="183" width="3" height="3" fill="#fff" fill-opacity="0.6"/>
+      <rect x="342" y="174" width="2.5" height="2.5"/>
+      <rect x="348" y="179" width="2" height="2" fill="#fff" fill-opacity="0.6"/>
     </g>
+
+    <g stroke-width="0.8">
+      <path d="M238 180H256L263 173H278L283 178H287"/>
+      <circle cx="238" cy="180" r="1.6" fill="#fff"/>
+      <circle cx="287" cy="178" r="1.6"/>
+      <path d="M56 180H74L81 187H104L110 181H122"/>
+      <circle cx="56" cy="180" r="1.6"/>
+      <circle cx="122" cy="181" r="1.6" fill="#fff"/>
+      <path d="M180 238V250M180 122V110L186 104" opacity="0.8"/>
+      <circle cx="180" cy="250" r="1.4"/>
+      <path d="M270 118V132L262 140V160"/>
+      <circle cx="262" cy="160" r="1.4" fill="#fff"/>
+      <path d="M90 128V146L98 154V160"/>
+      <circle cx="98" cy="160" r="1.4" fill="#fff"/>
+    </g>
+
+    <g stroke-width="0.8" transform="translate(26 112)">
+      <path d="M0-6L5.2-3V3L0 6L-5.2 3V-3Z"/>
+      <path d="M10.4-6L15.6-3V3L10.4 6L5.2 3V-3Z" fill="#fff" fill-opacity="0.3"/>
+      <path d="M5.2 3L10.4 6V12L5.2 15L0 12V6Z"/>
+    </g>
+
+    <path d="M232 338q3.5-7 7 0t7 0 7 0 7 0 7 0 7 0 7 0 7 0" stroke-width="0.8" opacity="0.8"/>
 
     <g fill="#fff" stroke="none">
       <circle cx="132" cy="36" r="1.2"/>

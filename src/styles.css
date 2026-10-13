@@ -589,9 +589,9 @@ main .text-gradient {
     radial-gradient(1px 1px at 86% 82%, #fff, transparent),
     radial-gradient(1px 1px at 52% 8%, #fff, transparent);
   background-size: 70px 70px;
-  background-position: calc(var(--mx) * -0.6) calc(var(--my) * -0.6);
+  background-position: calc(var(--mx) * -0.15) calc(var(--my) * -0.15);
   mix-blend-mode: color-dodge;
-  opacity: calc(var(--o) * 0.7);
+  opacity: calc(var(--o) * 0.18);
 }
 .holo-glare {
   background: radial-gradient(
@@ -604,7 +604,7 @@ main .text-gradient {
   opacity: var(--o);
 }
 .card-link {
-  @apply flex items-center justify-center gap-2 rounded-full bg-black/40 px-3 py-2.5 text-sm text-ink no-underline transition;
+  @apply flex items-center justify-center gap-2 rounded-full bg-black/50 px-3 py-2.5 text-sm text-ink no-underline transition;
   &:hover {
     @apply bg-white/10;
   }
@@ -695,5 +695,10 @@ main .text-gradient {
   mask: url(/img/holo-pattern.svg) calc(var(--mx) * -0.12) calc(var(--my) * -0.12) / 300px 300px repeat;
   mix-blend-mode: color-dodge;
   filter: saturate(1.4);
-  opacity: calc(var(--o) * 0.42);
+  opacity: calc(var(--o) * 0.34);
+}
+
+.holo-card-inner > :not(.card-art):not(#qr-open) {
+  position: relative;
+  z-index: 6;
 }
