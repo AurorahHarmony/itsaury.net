@@ -6,8 +6,10 @@ const clamp = (v: number, min = 0, max = 1) => Math.min(max, Math.max(min, v));
 let lastInput = -Infinity;
 let lastFrame = 0;
 
-const pose = { x: 0.35, y: 0.3, amp: 6 };
-const target = { x: 0.35, y: 0.3, amp: 6 };
+// Flat rest pose everywhere; the animation loop drives any tilt from here
+const rest = { x: 0.35, y: 0.3, amp: 0 };
+const pose = { ...rest };
+const target = { ...rest };
 
 function applyPose() {
   if (!card) return;
@@ -46,7 +48,8 @@ function fromOrientation(e: DeviceOrientationEvent) {
   if (e.gamma == null || e.beta == null) return;
   lastInput = performance.now();
   // The pose when tracking starts is treated as level; tilt is measured from
-  // there, and the card counter-rotates as if floating over the phone
+  // there. Only the shine moves on touch devices — tilting the whole card
+  // there mostly wobbles the text (amp 0 keeps the card itself level)
   neutral ??= { gamma: e.gamma, beta: e.beta };
   let dg = e.gamma - neutral.gamma;
   if (dg > 180) dg -= 360;
@@ -54,7 +57,7 @@ function fromOrientation(e: DeviceOrientationEvent) {
   setTarget(
     0.5 - clamp(dg / 35, -1, 1) * 0.5,
     0.5 - clamp((e.beta - neutral.beta) / 35, -1, 1) * 0.5,
-    12,
+    0,
   );
 }
 
@@ -97,7 +100,10 @@ if (card) {
     }
     // Exponential smoothing: pointer input and drift resume blend together
     // instead of snapping between poses
-    const k = 1 - Math.exp(-dt * 8);
+    // Snappy convergence while tracking the pointer; slow while drifting so
+    // the idle motion eases out of the rest pose instead of kicking in
+    const rate = drifting ? 1.5 : 8;
+    const k = 1 - Math.exp(-dt * rate);
     pose.x += (target.x - pose.x) * k;
     pose.y += (target.y - pose.y) * k;
     pose.amp += (target.amp - pose.amp) * k;
