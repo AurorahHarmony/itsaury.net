@@ -1,4 +1,5 @@
 export const title = "Projects";
+export const draft = true;
 
 export default (data: Lume.Data) => {
   const { comp, search } = data;

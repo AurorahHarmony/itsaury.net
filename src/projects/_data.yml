@@ -1,4 +1,5 @@
 type: project
 layout: project.tsx
+draft: true
 metas:
   description: "=subtitle"

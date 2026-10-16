@@ -4,12 +4,12 @@ navigation:
     href: /
   - name: Blog
     href: /blog/
-  - name: Projects
-    href: /projects/
+  # - name: Projects
+  #   href: /projects/
   - name: Resume
     href: /resume/
-  - name: Links
-    href: /links/
+  # - name: Links
+  #   href: /links/
   - name: Contact
     href: /contact/
 

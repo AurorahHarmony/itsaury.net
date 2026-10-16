@@ -33,7 +33,9 @@ export default (data: Lume.Data, filters: Lume.Helpers) => {
           </p>
           <div class="flex flex-wrap justify-center gap-3 md:justify-start">
             <a href="/blog/" class="btn-pixel">Read the blog</a>
-            <a href="/projects/" class="btn-ghost">View projects</a>
+            {projects.length > 0 && (
+              <a href="/projects/" class="btn-ghost">View projects</a>
+            )}
           </div>
         </div>
 
@@ -77,17 +79,19 @@ export default (data: Lume.Data, filters: Lume.Helpers) => {
         </section>
       </comp.Container>
 
-      <comp.Container class="mb-16">
-        <div class="mb-5 flex items-end justify-between">
-          <h2 class="text-3xl">Featured projects</h2>
-          <a href="/projects/" class="link font-hud text-xs uppercase tracking-widest">
-            All projects
-          </a>
-        </div>
-        <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {projects.map((project) => <comp.ProjectCard project={project} />)}
-        </div>
-      </comp.Container>
+      {projects.length > 0 && (
+        <comp.Container class="mb-16">
+          <div class="mb-5 flex items-end justify-between">
+            <h2 class="text-3xl">Featured projects</h2>
+            <a href="/projects/" class="link font-hud text-xs uppercase tracking-widest">
+              All projects
+            </a>
+          </div>
+          <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {projects.map((project) => <comp.ProjectCard project={project} />)}
+          </div>
+        </comp.Container>
+      )}
 
       <comp.Container class="mb-16 grid gap-6 md:grid-cols-2">
         <section class="holo-panel p-5">

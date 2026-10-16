@@ -4,6 +4,7 @@ export const title = "Contact";
 
 export default (data: Lume.Data) => {
   const { comp } = data;
+  const channels = socials.filter((social) => social.name !== "TailPlume");
   return (
     <comp.Container class="max-w-3xl">
       <p class="hud-label mb-3">Open channel</p>
@@ -12,7 +13,7 @@ export default (data: Lume.Data) => {
         Email is best for anything serious. Everywhere else, say hi!
       </p>
       <ul class="grid gap-3 sm:grid-cols-2">
-        {socials.map((social) => (
+        {channels.map((social) => (
           <li>
             {social.url
               ? (
@@ -39,6 +40,24 @@ export default (data: Lume.Data) => {
           </li>
         ))}
       </ul>
+
+      <a
+        href="/links/"
+        class="holo-panel group mt-8 flex items-center gap-5 p-6 text-ink no-underline transition hover:-translate-y-0.5"
+      >
+        <span
+          class="icon !size-12 shrink-0 text-holo drop-shadow-[0_0_8px_var(--color-holo)] transition group-hover:text-magenta"
+          style="--icon: url(/icons/qr-code.svg)"
+          aria-hidden="true"
+        />
+        <span class="min-w-0">
+          <span class="block text-xl">Meeting me at a con?</span>
+          <span class="block text-sm text-lavender/80">
+            Grab my holo card: every link in one place, with a QR code to scan.
+          </span>
+        </span>
+        <span class="btn-pixel ml-auto shrink-0 max-sm:hidden">Open the con card</span>
+      </a>
     </comp.Container>
   );
 };

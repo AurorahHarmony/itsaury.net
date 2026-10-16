@@ -18,14 +18,13 @@ export const profile = {
 };
 
 const socials: Social[] = [
-  { name: "Discord", icon: "discord", copy: "aurorahHarmony" },
+  { name: "Email", icon: "envelope-fill", url: "mailto:me@itsaury.net" },
+  { name: "Discord", icon: "discord", copy: "luna.starchild" },
   { name: "Mastodon", icon: "mastodon", url: "https://pony.social/@aurorahHarmony" },
   { name: "Twitter", icon: "twitter", url: "https://twitter.com/aurorahHarmony" },
   { name: "GitHub", icon: "github", url: "https://github.com/aurorahHarmony" },
-  { name: "Ko-fi", icon: "cup-hot-fill", url: "https://ko-fi.com/aurorahHarmony" },
   { name: "Keybase", icon: "key-fill", url: "https://keybase.io/aurorahharmony" },
-  { name: "TailPlume", icon: "person-badge-fill", url: "https://tailplu.me/aurorah" },
-  { name: "Email", icon: "envelope-fill", url: "mailto:me@itsaury.net" },
+  { name: "Ko-fi", icon: "cup-hot-fill", url: "https://ko-fi.com/aurorahHarmony" },
 ];
 
 export default socials;
