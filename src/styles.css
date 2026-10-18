@@ -640,6 +640,7 @@ main .text-gradient {
    scannable while they run */
 .qr-svg {
   position: relative;
+  cursor: pointer;
   border: 2px solid transparent;
   border-radius: 14px;
   overflow: hidden;

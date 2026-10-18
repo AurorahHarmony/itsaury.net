@@ -151,7 +151,7 @@ if (card) {
 }
 
 const toast = document.getElementById("toast");
-let toastTimer = 0;
+let toastTimer: ReturnType<typeof setTimeout> | undefined;
 function showToast(message: string) {
   if (!toast) return;
   toast.textContent = message;
@@ -217,8 +217,9 @@ async function buildQr() {
   canvas.width = canvas.height = size;
   // Same background as the SVG's, hiding the code until cells reveal it
   const bg = ctx.createLinearGradient(0, 0, size, size);
-  bg.addColorStop(0, "#170428");
-  bg.addColorStop(1, "#0b0016");
+  svg.querySelectorAll("#qr-bg stop").forEach((stop) => {
+    bg.addColorStop(Number(stop.getAttribute("offset")), stop.getAttribute("stop-color")!);
+  });
   ctx.fillStyle = bg;
   ctx.fillRect(0, 0, size, size);
 
@@ -314,6 +315,33 @@ async function buildQr() {
   requestAnimationFrame(step);
 }
 
+// Light-on-dark codes trip up some older scanner apps, so viewers can flip to
+// dark-on-light; the choice sticks for next time
+function setQrInverted(inverted: boolean) {
+  const svg = qrBox?.querySelector("svg");
+  if (!svg || svg.classList.contains("is-inverted") === inverted) return;
+  svg.classList.toggle("is-inverted", inverted);
+  svg.querySelectorAll("stop[data-alt]").forEach((stop) => {
+    const current = stop.getAttribute("stop-color")!;
+    stop.setAttribute("stop-color", stop.getAttribute("data-alt")!);
+    stop.setAttribute("data-alt", current);
+  });
+  try {
+    localStorage.setItem("qr-inverted", inverted ? "1" : "");
+  } catch { /* storage unavailable */ }
+}
+
+try {
+  if (localStorage.getItem("qr-inverted")) setQrInverted(true);
+} catch { /* storage unavailable */ }
+
+const toggleQr = () => {
+  setQrInverted(!qrBox?.querySelector("svg")?.classList.contains("is-inverted"));
+  buildQr();
+};
+document.getElementById("qr-invert")?.addEventListener("click", toggleQr);
+qrBox?.addEventListener("click", toggleQr);
+
 document.getElementById("qr-open")?.addEventListener("click", () => {
   dialog?.showModal();
   buildQr();
@@ -322,6 +350,11 @@ document.getElementById("qr-open")?.addEventListener("click", () => {
 document.getElementById("qr-close")?.addEventListener("click", () => dialog?.close());
 dialog?.addEventListener("click", (e) => {
   if (e.target === dialog) dialog.close();
+});
+// Browsers drop the wake lock whenever the page is hidden, so take it again
+// on return if the code is still showing
+document.addEventListener("visibilitychange", () => {
+  if (document.visibilityState === "visible" && dialog?.open) lockScreen();
 });
 dialog?.addEventListener("close", () => {
   wakeLock?.release();

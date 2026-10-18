@@ -8,6 +8,15 @@ function roundRect(x: number, y: number, w: number, h: number, r: number) {
     `h${-(w - 2 * r)}a${r} ${r} 0 0 1 ${-r} ${-r}v${-(h - 2 * r)}a${r} ${r} 0 0 1 ${r} ${-r}z`;
 }
 
+// Each stop carries its dark-on-light colour too, which links.ts swaps in when
+// the viewer inverts the code for scanners that can't read light-on-dark
+function gradient(id: string, stops: [string, string][]) {
+  const step = 1 / (stops.length - 1);
+  return `<linearGradient id="${id}" x1="0" y1="0" x2="1" y2="1">` +
+    stops.map(([dark, light], i) => `<stop offset="${i * step}" stop-color="${dark}" data-alt="${light}"/>`).join("") +
+    `</linearGradient>`;
+}
+
 function buildSvg(text: string) {
   const qr = qrcode(0, "M");
   qr.addData(text);
@@ -44,9 +53,9 @@ function buildSvg(text: string) {
 
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${size} ${size}" role="img" aria-label="QR code linking to ${text}">
 <defs>
-<linearGradient id="qr-bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#170428"/><stop offset="1" stop-color="#0b0016"/></linearGradient>
-<linearGradient id="qr-ink" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5ef2ff"/><stop offset="0.5" stop-color="#dccbff"/><stop offset="1" stop-color="#ff4fd8"/></linearGradient>
-<linearGradient id="qr-eye" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff4fd8"/><stop offset="1" stop-color="#5ef2ff"/></linearGradient>
+${gradient("qr-bg", [["#170428", "#fbf7ff"], ["#0b0016", "#efe4ff"]])}
+${gradient("qr-ink", [["#5ef2ff", "#3a1290"], ["#dccbff", "#5b1fc0"], ["#ff4fd8", "#9a1488"]])}
+${gradient("qr-eye", [["#ff4fd8", "#b3138f"], ["#5ef2ff", "#5b1fc0"]])}
 </defs>
 <rect width="${size}" height="${size}" fill="url(#qr-bg)"/>
 <path fill="url(#qr-ink)" d="${dots}"/>

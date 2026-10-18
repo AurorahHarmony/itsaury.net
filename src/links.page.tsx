@@ -114,6 +114,13 @@ export default (data: Lume.Data) => {
           </div>
           <div class="qr-svg" dangerouslySetInnerHTML={{ __html: qr }} />
           <p class="mt-3 text-center font-mono text-xs text-lavender/70">itsaury.net/links</p>
+          <button
+            type="button"
+            id="qr-invert"
+            class="mx-auto mt-2 block font-hud text-[0.55rem] tracking-widest text-lavender/50 uppercase transition hover:text-holo"
+          >
+            Trouble scanning? Tap to invert
+          </button>
         </div>
       </dialog>
 
