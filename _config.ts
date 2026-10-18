@@ -75,6 +75,7 @@ site.process([".html"], (pages) => {
 
 site.add("/styles.css");
 site.add("/js");
+site.add("uploads");
 site.copy("static", ".");
 
 const getCommitInfo = async () => {
