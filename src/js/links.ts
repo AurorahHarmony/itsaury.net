@@ -4,6 +4,9 @@ const coarsePointer = matchMedia("(pointer: coarse)");
 const clamp = (v: number, min = 0, max = 1) => Math.min(max, Math.max(min, v));
 
 let lastInput = -Infinity;
+// True while a mouse/pen is over the page: it keeps the card under pointer
+// control however long it sits still, and only leaving hands off to the drift
+let pointerPresent = false;
 let lastFrame = 0;
 
 // Flat rest pose everywhere; the animation loop drives any tilt from here
@@ -36,6 +39,7 @@ function fromPointer(e: PointerEvent) {
   if (!card || e.pointerType === "touch") return;
   const rect = card.getBoundingClientRect();
   lastInput = performance.now();
+  pointerPresent = true;
   setTarget(
     clamp((e.clientX - rect.left) / rect.width, -0.2, 1.2),
     clamp((e.clientY - rect.top) / rect.height, -0.2, 1.2),
@@ -44,6 +48,20 @@ function fromPointer(e: PointerEvent) {
 
 let neutral: { gamma: number; beta: number } | null = null;
 
+// How far the phone has to tilt (degrees) to sweep the shine to the card's
+// edge. A reflection's offset on a flat surface goes with the sine of the
+// tilt, so small movements shift it gently and it eases out near the limit
+// instead of tracking the angle linearly
+const TILT_RANGE = 60;
+const tiltGain = 0.5 / Math.sin((TILT_RANGE * Math.PI) / 180);
+
+function lean(deg: number) {
+  if (deg > 180) deg -= 360;
+  if (deg < -180) deg += 360;
+  const rad = clamp((deg * Math.PI) / 180, -Math.PI / 2, Math.PI / 2);
+  return clamp(Math.sin(rad) * tiltGain, -0.5, 0.5);
+}
+
 function fromOrientation(e: DeviceOrientationEvent) {
   if (e.gamma == null || e.beta == null) return;
   lastInput = performance.now();
@@ -51,12 +69,9 @@ function fromOrientation(e: DeviceOrientationEvent) {
   // there. Only the shine moves on touch devices — tilting the whole card
   // there mostly wobbles the text (amp 0 keeps the card itself level)
   neutral ??= { gamma: e.gamma, beta: e.beta };
-  let dg = e.gamma - neutral.gamma;
-  if (dg > 180) dg -= 360;
-  if (dg < -180) dg += 360;
   setTarget(
-    0.5 - clamp(dg / 35, -1, 1) * 0.5,
-    0.5 - clamp((e.beta - neutral.beta) / 35, -1, 1) * 0.5,
+    0.5 - lean(e.gamma - neutral.gamma),
+    0.5 - lean(e.beta - neutral.beta),
     0,
   );
 }
@@ -67,7 +82,10 @@ if (card) {
   globalThis.addEventListener("pointerdown", fromPointer);
   // Hand off to the drift loop as soon as the pointer leaves the page or
   // the window loses focus, instead of holding the last tracked pose
-  const release = () => lastInput = -Infinity;
+  const release = () => {
+    lastInput = -Infinity;
+    pointerPresent = false;
+  };
   document.addEventListener("mouseleave", release);
   globalThis.addEventListener("blur", release);
 
@@ -82,7 +100,7 @@ if (card) {
     lastFrame = now;
     // No idle drift on touch devices: they get the orientation-driven shine
     // behind the "Tap to activate" button instead
-    if (now - lastInput >= 2500 && !reducedMotion.matches && !coarsePointer.matches) {
+    if (!pointerPresent && now - lastInput >= 2500 && !reducedMotion.matches && !coarsePointer.matches) {
       if (!drifting) {
         // Resume the loop at the point closest to the current pose so the
         // handoff glides in instead of swinging through the center

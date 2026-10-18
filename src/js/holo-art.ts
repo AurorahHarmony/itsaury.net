@@ -119,8 +119,12 @@ void main() {
   vec2 d = vUv - 0.5;
   d.x *= uRes.x / uRes.y;
   float sw = fract(atan(d.y, d.x) / 6.2831 - uTime * 0.045);
-  float beam = exp(-pow((sw - 0.06) * 12.0, 2.0));
-  col.rgb += col.a * beam * 0.16 * mix(MAGENTA, HOLO, clamp(sw * 4.0, 0.0, 1.0)) * live;
+  // Wrapped distance to the beam center: sw jumps from 1 back to 0 just
+  // ahead of the beam, so a plain difference cuts its leading glow off
+  float bd = sw - 0.06;
+  bd -= floor(bd + 0.5);
+  float beam = exp(-pow(bd * 12.0, 2.0));
+  col.rgb += col.a * beam * 0.16 * mix(MAGENTA, HOLO, clamp((bd + 0.06) * 4.0, 0.0, 1.0)) * live;
 
   float bandPos = 1.0 - fract(uTime * 0.09);
   float band = exp(-pow((vUv.y - bandPos) * 22.0, 2.0));
