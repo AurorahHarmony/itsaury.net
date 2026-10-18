@@ -43,7 +43,7 @@ export default ({
   class: className = "",
 }: Props) => (
   <aside class={`holo-panel p-6 ${className}`} style="--bracket: var(--color-magenta)" aria-label="Support me">
-    <p class="hud-label mb-2">▸ Support the signal</p>
+    <p class="hud-label mb-2">▸ Support the Synth</p>
     <h2 class="mb-2 text-2xl">{heading}</h2>
     <p class="mb-5 text-lavender/80">{blurb}</p>
     <div class="flex flex-wrap gap-3">

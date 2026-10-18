@@ -13,10 +13,22 @@ import feed from "lume/plugins/feed.ts";
 import jsonLd from "lume/plugins/json_ld.ts";
 import picture from "lume/plugins/picture.ts";
 import transformImages from "lume/plugins/transform_images.ts";
+import ogImages from "lume/plugins/og_images.ts";
 
 // Shared by the blog index, its meta description and the RSS feed
 const blogDescription =
   "Projects, interests, philosophy and whatever else is on my mind.";
+
+// Satori can't read woff2, so the OG cards load static woff builds of the
+// site's fonts from Fontsource
+const font = async (name: string, family: string, weight: 400 | 600) => ({
+  name,
+  weight,
+  style: "normal" as const,
+  data: await fetch(
+    `https://cdn.jsdelivr.net/npm/@fontsource/${family}@5.3.0/files/${family}-latin-${weight}-normal.woff`,
+  ).then((res) => res.arrayBuffer()),
+});
 
 const site = lume({
   location: new URL("https://itsaury.net"),
@@ -27,6 +39,17 @@ site
   .use(date())
   .use(jsx())
   .use(mdx())
+  .use(ogImages({
+    options: {
+      width: 1200,
+      height: 630,
+      fonts: await Promise.all([
+        font("Outfit", "outfit", 400),
+        font("Pixelify Sans", "pixelify-sans", 600),
+        font("Silkscreen", "silkscreen", 400),
+      ]),
+    },
+  }))
   .use(metas())
   .use(jsonLd())
   .use(tailwindcss())
@@ -40,6 +63,16 @@ site
     })
   );
 site.use(sitemap());
+
+// A post can set `ogImage` in its front matter to use a hand-made card
+// instead of the generated one
+site.preprocess([".html"], (pages) => {
+  for (const page of pages) {
+    if (!page.data.ogImage) continue;
+    page.data.openGraphLayout = undefined;
+    page.data.metas = { ...page.data.metas, image: page.data.ogImage };
+  }
+});
 
 // The sitemap plugin only appends its own line, so lead with the crawler rules
 site.process("*", async () => {

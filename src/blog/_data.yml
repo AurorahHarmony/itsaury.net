@@ -1,6 +1,7 @@
 type: blog-post
 layout: blog-post.tsx
 backdrop: night
+openGraphLayout: og/post.tsx
 tags: []
 metas:
   type: article

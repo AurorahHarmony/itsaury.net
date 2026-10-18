@@ -41,6 +41,13 @@ cms.collection({
       description: "If checked, the post will not be published.",
     },
     {
+      name: "ogImage",
+      type: "file",
+      label: "Link preview image",
+      description: "Optional 1200x630 image. Leave empty to generate one from the title, excerpt and tags.",
+      upload: "uploads:blog/{document_dirname}",
+    },
+    {
       name: "images",
       type: "file-list",
       label: "Post images",
