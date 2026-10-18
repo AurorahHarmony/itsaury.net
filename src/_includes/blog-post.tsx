@@ -8,7 +8,7 @@ export default (data: Lume.Data, filters: Lume.Helpers) => {
       </a>
       <header class="mt-4 mb-6">
         <p class="hud-label mb-2">
-          Log {filters.date(date, "y-MM-dd")} · {readingInfo?.minutes ?? 1} min read
+          Log <time datetime={date.toISOString()}>{filters.date(date, "y-MM-dd")}</time> · {readingInfo?.minutes ?? 1} min read
         </p>
         <h1 class="mb-3 text-4xl sm:text-5xl">{title}</h1>
         <ul class="flex flex-wrap gap-1.5">
@@ -22,6 +22,7 @@ export default (data: Lume.Data, filters: Lume.Helpers) => {
       <div class="holo-panel p-6 sm:p-8">
         <div class="prose prose-custom">{children}</div>
       </div>
+      <comp.SupportBox class="mt-8" />
       <script type="module" src="/js/lightbox.js"></script>
       <script type="module" src="/js/code-copy.js"></script>
     </comp.Container>

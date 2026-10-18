@@ -10,6 +10,13 @@ import sitemap from "lume/plugins/sitemap.ts";
 import esbuild from "lume/plugins/esbuild.ts";
 import codeHighlight from "lume/plugins/code_highlight.ts";
 import feed from "lume/plugins/feed.ts";
+import jsonLd from "lume/plugins/json_ld.ts";
+import picture from "lume/plugins/picture.ts";
+import transformImages from "lume/plugins/transform_images.ts";
+
+// Shared by the blog index, its meta description and the RSS feed
+const blogDescription =
+  "Projects, interests, philosophy and whatever else is on my mind.";
 
 const site = lume({
   location: new URL("https://itsaury.net"),
@@ -21,6 +28,7 @@ site
   .use(jsx())
   .use(mdx())
   .use(metas())
+  .use(jsonLd())
   .use(tailwindcss())
   .use(postcss())
   .use(esbuild({ extensions: [".ts"] }))
@@ -32,13 +40,19 @@ site
     })
   );
 site.use(sitemap());
+
+// The sitemap plugin only appends its own line, so lead with the crawler rules
+site.process("*", async () => {
+  const robots = await site.getOrCreatePage("/robots.txt");
+  robots.text = `User-agent: *\nAllow: /\n${robots.text}`;
+});
 site.use(
   feed({
     output: "/blog/feed.xml",
     query: "type=blog-post",
     info: {
       title: "Aury's blog",
-      description: "Projects, prosthetics, synths and other things I make.",
+      description: blogDescription,
     },
     items: { title: "=title", description: "=excerpt" },
   }),
@@ -73,6 +87,10 @@ site.process([".html"], (pages) => {
   }
 });
 
+// Elements marked with transform-images get AVIF/WebP sources and resized copies
+site.use(picture());
+site.use(transformImages());
+
 site.add("/styles.css");
 site.add("/js");
 site.add("uploads");
@@ -103,5 +121,6 @@ const getCommitInfo = async () => {
 };
 
 site.data("git", await getCommitInfo());
+site.data("blogDescription", blogDescription);
 
 export default site;

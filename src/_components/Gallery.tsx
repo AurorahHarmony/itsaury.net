@@ -1,3 +1,5 @@
+import { transformImages } from "../_includes/images.ts";
+
 interface Image {
   src: string;
   alt: string;
@@ -11,6 +13,7 @@ export default ({ images }: { images: Image[] }) => (
         <img
           src={image.src}
           alt={image.alt}
+          transform-images={transformImages(image.src, "480@2")}
           loading="lazy"
           data-lightbox
           class="aspect-square w-full cursor-zoom-in border border-holo/20 object-cover"

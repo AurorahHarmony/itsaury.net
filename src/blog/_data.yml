@@ -5,3 +5,18 @@ tags: []
 metas:
   type: article
   description: "=excerpt || $ p"
+jsonLd:
+  "@context": https://schema.org
+  "@type": BlogPosting
+  headline: "=title"
+  description: "=excerpt"
+  datePublished: "=date"
+  keywords: "=tags"
+  url: "=url"
+  image: "=metas.image"
+  mainEntityOfPage: "=url"
+  author:
+    "@type": Person
+    "@id": https://itsaury.net/#aury
+    name: Aurorah Harmony
+    url: /

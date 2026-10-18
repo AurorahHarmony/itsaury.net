@@ -2,11 +2,12 @@
 <html lang="en" data-scene="{{ backdrop }}">
   <head>
     <meta charset="utf-8" />
-    <title>{{ if title }}{{ title }} - It's Aury{{ else }}It's Aury{{ /if }}</title>
+    <title>{{ if title }}{{ title }} | Aury - Code Synth{{ else }}Aury - Code Synth{{ /if }}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="canonical" href="{{ url |> url(true) }}" />
     <link rel="icon" href="/img/logo.png" type="image/png" />
     <link rel="apple-touch-icon" href="/img/apple-touch-icon.png" />
+    <link rel="alternate" type="application/rss+xml" title="Aury's blog" href="/blog/feed.xml" />
     <script>document.documentElement.classList.add("js")</script>
 
     <link rel="preload" href="/fonts/outfit.woff2" as="font" type="font/woff2" crossorigin />
@@ -22,7 +23,7 @@
     {{ set container }}
       <nav class="holo-panel flex items-center gap-2 px-3 py-2 text-ink" aria-label="Primary">
         <a href="/" class="mr-auto flex items-center gap-2.5 py-1 pr-2" aria-label="Aury, home">
-          <img src="/img/logo.png" alt="" width="20" height="28" class="pixelated drop-shadow-[0_0_6px_var(--color-magenta)]" />
+          <img src="/img/logo.png" alt="Aury's signature" width="20" height="28" class="pixelated drop-shadow-[0_0_6px_var(--color-magenta)]" />
           <span class="font-display text-xl leading-none text-glow">Aury</span>
           <span class="hud-label hidden sm:inline text-holo/70">.net</span>
         </a>
@@ -59,10 +60,10 @@
           <span class="flex items-center gap-2 text-holo"><span class="status-dot"></span>System online</span>
           <span>Build <a class="link" href="{{ git.commitUrl }}">{{ git.shortHash || "local" }}</a></span>
           <span>Uptime {{ new Date().getFullYear() - 2018 }}y <span class="text-lavender/50">since 2018</span></span>
-          <span class="sm:ml-auto">Support Me <a class="link" href="https://ko-fi.com/aurorahHarmony">Ko-fi</a></span>
+          <span class="sm:ml-auto">Support Me <a class="link" href="{{ support.methods[0].url }}">{{ support.methods[0].name }}</a></span>
           <span>Src <a class="link" href="{{ git.repo }}">GitHub</a></span>
         </div>
-        <p class="text-lavender/50">
+        <p class="text-lavender/50 [text-shadow:0_1px_2px_rgb(0_0_0/0.7)]">
           &copy; 2018 - {{ new Date().getFullYear() }} Aurorah Harmony. Any and all
           opinions listed here are my own and not representative of my
           employers; future, past and present.

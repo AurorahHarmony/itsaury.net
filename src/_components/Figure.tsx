@@ -1,3 +1,5 @@
+import { transformImages } from "../_includes/images.ts";
+
 interface Props {
   src: string;
   alt: string;
@@ -11,6 +13,7 @@ export default ({ src, alt, caption, width, pixelated }: Props) => (
     <img
       src={src}
       alt={alt}
+      transform-images={transformImages(src, "720@2", pixelated)}
       loading="lazy"
       data-lightbox
       class={`w-full cursor-zoom-in border border-holo/20 ${pixelated ? "pixelated" : ""}`}

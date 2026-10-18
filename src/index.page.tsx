@@ -1,4 +1,28 @@
-import { profile } from "./_data/socials.ts";
+import socials, { profile } from "./_data/socials.ts";
+
+export const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://itsaury.net/#website",
+      name: "Aury - Code Synth",
+      url: "/",
+      author: { "@id": "https://itsaury.net/#aury" },
+    },
+    {
+      "@type": "Person",
+      "@id": "https://itsaury.net/#aury",
+      name: "Aurorah Harmony",
+      alternateName: "Aury",
+      url: "/",
+      image: "/img/aury2.png",
+      jobTitle: "Software engineer",
+      homeLocation: { "@type": "Country", name: "New Zealand" },
+      sameAs: socials.flatMap((s) => s.url?.startsWith("https://") ? [s.url] : []),
+    },
+  ],
+};
 
 export default (data: Lume.Data, filters: Lume.Helpers) => {
   const { comp, search } = data;
@@ -96,13 +120,14 @@ export default (data: Lume.Data, filters: Lume.Helpers) => {
       <comp.Container class="mb-16 grid gap-6 md:grid-cols-2">
         <section class="holo-panel p-5">
           <h2 class="mb-3 text-2xl">Recent posts</h2>
+          {posts.length === 0 && <p class="text-lavender/80">First transmission incoming.</p>}
           <ul class="space-y-1.5">
             {posts.map((post) => (
               <li>
                 <a href={post.url} class="link">
-                  <span class="font-mono text-sm text-lavender/60">
+                  <time datetime={post.date.toISOString()} class="font-mono text-sm text-lavender/60">
                     {filters.date(post.date, "y-MM-dd")}
-                  </span>{" "}
+                  </time>{" "}
                   {post.title}
                 </a>
               </li>
