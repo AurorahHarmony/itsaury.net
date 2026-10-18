@@ -1,4 +1,5 @@
 export const title = "Signal lost";
+export const ogImage = "/img/og-default.png";
 export const url = "/404.html";
 
 export default (data: Lume.Data) => {

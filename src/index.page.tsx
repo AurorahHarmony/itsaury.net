@@ -1,3 +1,6 @@
+// The home page keeps the hand-made card instead of a generated one
+export const ogImage = "/img/og-default.png";
+
 import socials, { profile } from "./_data/socials.ts";
 
 export const jsonLd = {
