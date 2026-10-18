@@ -295,8 +295,8 @@ const SYNTHWAVE: Scene = {
 };
 
 // Night: Princess Luna's sky. Her mane streams from the moon across the
-// stars, an aurora hangs low over the horizon, and Canterlot keeps watch
-// from its mountainside.
+// stars, an aurora hangs low over the horizon, a pegasus passes by now and
+// then, and Canterlot keeps watch from its mountainside.
 
 // Luna's mane palette (periwinkle, cornflower, pale sky and a violet sheen),
 // pulled darker and softer so it sits inside the night rather than on it.
@@ -330,6 +330,44 @@ const MARE_BOWLS = [
   { outer: [-0.061, 0.244, 0.081, 0.058], inner: [-0.041, 0.224, 0.061, 0.041], angle: 0 },
 ];
 
+// A Pony Town-style pegasus (23x16, facing right) that crosses the sky now
+// and then: a round MLP head, a mane over the crown with a forelock curling
+// down the face, and stubby legs. C coat, S shaded coat, M mane, N mane shadow,
+// L eye highlight, E eye. The tail flutters between two shapes, the wings are
+// row spans (with a darker far wing behind the body), and outlines are added
+// around the whole silhouette when each frame is drawn.
+const PEGASUS_BODY = [
+  ".............CC........",
+  "..........MMMCCMMM.....",
+  ".........MMMMMMMMMMM...",
+  ".........MMNMMMNNMMMM..",
+  "........MMNMMNCCCCNMM..",
+  "........MMNMMNCCCCCNM..",
+  "........MMNMMNCCCLECN..",
+  ".........MMNMNCCCEECCC.",
+  ".........MMNMNCCCCCCCC.",
+  "........MMNMNSSSSSSSS..",
+  ".....CCCMMMMMCC........",
+  "....CCCCCMMMCCC........",
+  "....CCCCCCCCCCC........",
+  ".....SSSSSSSSS.........",
+  ".....SS.....SSC........",
+  "....SS.......CC........",
+];
+const TAIL_ROW = 10;
+const PEGASUS_TAILS = [
+  ["MMM.", "MNMM", ".MNM", "..MM", "...M"],
+  ["MMNM", "MNMM", ".MNM", "..M.", "...."],
+];
+// Wing poses as {row: [from, to]}: up, raised, level, down.
+const PEGASUS_WINGS: Record<number, [number, number]>[] = [
+  { 2: [3, 3], 3: [3, 5], 4: [4, 6], 5: [5, 7], 6: [5, 8], 7: [6, 9], 8: [7, 10], 9: [8, 10], 10: [9, 10] },
+  { 6: [2, 3], 7: [2, 6], 8: [3, 8], 9: [6, 10], 10: [8, 10] },
+  { 9: [1, 9], 10: [2, 10] },
+  { 11: [7, 10], 12: [6, 9], 13: [5, 8], 14: [5, 7], 15: [6, 6] },
+];
+const WINGBEAT = [0, 1, 2, 3, 2, 1];
+
 // Canterlot spires: offset from the castle centre, half-width, height as a
 // fraction of the skyline unit, and which row (if any) has a lit window.
 // The tallest one holds Luna's balcony.
@@ -349,6 +387,18 @@ let windowGlow: CanvasGradient | undefined;
 let windowPos = { x: 0, y: 0 };
 let moon = { x: 0, y: 0, r: 0 };
 let maneStars: ManeStar[] = [];
+let pegasus = {
+  t: -1,
+  next: rand(20, 40),
+  x: 0,
+  y: 0,
+  dir: 1,
+  speed: 0,
+  gliding: false,
+  phaseLeft: 0,
+  beat: 0,
+  colors: {} as Record<string, string>,
+};
 const celestial = document.createElement("canvas");
 const land = document.createElement("canvas");
 const auroraStrip = document.createElement("canvas");
@@ -589,6 +639,123 @@ function drawMane(t: number) {
   ctx.globalAlpha = 1;
 }
 
+// Night-shaded pony colours: any hue, but muted and dark so it reads as a
+// pony passing under the moon rather than a bright sprite. Outlines are a
+// deeper shade of each part, as in Pony Town.
+function pegasusColors() {
+  const hsl = (h: number, s: number, l: number) => `hsl(${h} ${s}% ${Math.max(3, l)}%)`;
+  const ch = rand(0, 360);
+  const cs = rand(15, 35);
+  const cl = rand(18, 26);
+  const mh = rand(0, 360);
+  const ms = rand(35, 55);
+  const ml = rand(24, 32);
+  return {
+    C: hsl(ch, cs, cl), Cr: hsl(ch, cs, cl + 7), S: hsl(ch, cs, cl - 8),
+    W: hsl(ch, cs, cl + 4), Wr: hsl(ch, cs, cl + 11), f: hsl(ch, cs, cl - 6),
+    M: hsl(mh, ms, ml), Mr: hsl(mh, ms, ml + 7), N: hsl(mh, ms, ml - 9),
+    L: hsl(220, 20, cl + 35), E: "#07091a",
+    Oc: hsl(ch, cs + 10, cl - 14), Om: hsl(mh, ms + 10, ml - 16),
+  };
+}
+
+function drawPegasus(dt: number) {
+  if (!ctx) return;
+  const top = h * 0.42;
+  const bottom = h * 0.62;
+  if (pegasus.t < 0) {
+    pegasus.next -= dt;
+    if (pegasus.next <= 0 && dt > 0) {
+      const dir = Math.random() < 0.5 ? 1 : -1;
+      pegasus = {
+        t: 0,
+        next: 0,
+        x: dir > 0 ? -26 : w + 2,
+        y: rand(top, bottom),
+        dir,
+        speed: w / rand(16, 22),
+        gliding: false,
+        phaseLeft: rand(1.8, 3),
+        beat: 0,
+        colors: pegasusColors(),
+      };
+    }
+    return;
+  }
+  const p = pegasus;
+  p.t += dt;
+  p.x += p.dir * p.speed * dt;
+  if (p.x < -28 || p.x > w + 4) {
+    pegasus = { ...p, t: -1, next: rand(60, 150) };
+    return;
+  }
+
+  // Bursts of wingbeats that climb, then glides that sink gently with the
+  // wings held raised in a shallow V.
+  p.phaseLeft -= dt;
+  if (p.phaseLeft <= 0) {
+    p.gliding = !p.gliding;
+    p.phaseLeft = p.gliding ? rand(1.2, 2.5) : rand(1.8, 3);
+  }
+  let frame = 1;
+  let bob = 0;
+  if (p.gliding) {
+    p.y += 1.8 * dt;
+  } else {
+    p.beat += dt * 1.6;
+    frame = WINGBEAT[Math.floor(p.beat * 6) % 6];
+    bob = frame === 3 ? -1 : frame === 0 ? 1 : 0;
+    p.y -= 2.5 * dt;
+  }
+  p.y = Math.min(bottom, Math.max(top, p.y));
+
+  // Compose this frame: far wing, body and tail, then the near wing.
+  const key = (x: number, y: number) => (y + 2) * 40 + x + 2;
+  const fills = new Map<number, string>();
+  const wing = PEGASUS_WINGS[frame];
+  for (const [row, [a, b]] of Object.entries(wing)) {
+    for (let x = a + 2; x <= b + 2; x++) fills.set(key(x, Number(row) - 1), "f");
+  }
+  const tail = PEGASUS_TAILS[Math.floor(p.t * 4) % 2];
+  PEGASUS_BODY.forEach((row, y) => {
+    for (let x = 0; x < row.length; x++) {
+      const k = row[x] !== "." ? row[x] : tail[y - TAIL_ROW]?.[x] ?? ".";
+      if (k !== ".") fills.set(key(x, y), k);
+    }
+  });
+  for (const [row, [a, b]] of Object.entries(wing)) {
+    for (let x = a; x <= b; x++) fills.set(key(x, Number(row)), "W");
+  }
+
+  const ox = Math.round(p.x);
+  const oy = Math.round(p.y) + bob;
+  const plot = (x: number, y: number, color: string) => {
+    ctx.fillStyle = color;
+    ctx.fillRect(ox + (p.dir > 0 ? x : 22 - x), oy + y, 1, 1);
+  };
+
+  // Outline: any empty pixel touching the silhouette, in the mane's deeper
+  // shade where it only touches mane, otherwise the coat's.
+  for (let y = -2; y < 18; y++) {
+    for (let x = -1; x < 25; x++) {
+      if (fills.has(key(x, y))) continue;
+      const near = [key(x + 1, y), key(x - 1, y), key(x, y + 1), key(x, y - 1)]
+        .map((n) => fills.get(n))
+        .filter((n): n is string => !!n);
+      if (!near.length) continue;
+      plot(x, y, p.colors[near.every((n) => n === "M" || n === "N") ? "Om" : "Oc"]);
+    }
+  }
+
+  // Fills, with moonlight catching the top edge of the coat, mane and wing.
+  for (const [k, part] of fills) {
+    const x = (k % 40) - 2;
+    const y = Math.floor(k / 40) - 2;
+    const lit = (part === "C" || part === "M" || part === "W") && !fills.has(key(x, y - 1));
+    plot(x, y, p.colors[lit ? part + "r" : part]);
+  }
+}
+
 function drawWindowGlow(t: number) {
   if (!ctx || !windowGlow) return;
   ctx.globalAlpha = 0.85 + 0.15 * Math.sin(t * 0.8);
@@ -650,6 +817,7 @@ const NIGHT: Scene = {
     drawMane(t);
     ctx.drawImage(celestial, 0, 0);
     drawShootingStar(dt);
+    drawPegasus(dt);
     drawSparkles(dt);
     ctx.drawImage(land, 0, 0);
     drawWindowGlow(t);
