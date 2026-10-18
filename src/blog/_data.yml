@@ -1,5 +1,6 @@
 type: blog-post
 layout: blog-post.tsx
+backdrop: night
 tags: []
 metas:
   type: article

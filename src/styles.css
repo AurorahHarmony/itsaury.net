@@ -82,6 +82,14 @@
     background-color: var(--color-void);
     background-attachment: fixed;
   }
+  html[data-scene="night"] {
+    /* Luna's horn-magic glow and a deep royal blue for the nav underline. */
+    --panel-glow: #7ab8ff;
+    --nav-accent: #2f45c4;
+    background: linear-gradient(to bottom, #05081c, #0c1238 60%, #1a2360);
+    background-color: #05081c;
+    background-attachment: fixed;
+  }
   body {
     @apply min-h-screen font-sans text-lavender antialiased;
   }
@@ -177,7 +185,7 @@
       color-mix(in oklab, var(--color-void) 70%, transparent) 70%
     );
   box-shadow:
-    0 0 32px -12px color-mix(in oklab, var(--color-magenta) 60%, transparent),
+    0 0 32px -12px color-mix(in oklab, var(--panel-glow, var(--color-magenta)) 60%, transparent),
     inset 0 0 40px -24px var(--color-holo);
   backdrop-filter: blur(10px);
   &::before {
@@ -358,11 +366,11 @@
     height: 2px;
     background: repeating-linear-gradient(
         90deg,
-        var(--color-magenta) 0 4px,
+        var(--nav-accent, var(--color-magenta)) 0 4px,
         transparent 4px 6px
       ),
       var(--color-holo);
-    box-shadow: 0 0 8px var(--color-magenta);
+    box-shadow: 0 0 8px var(--nav-accent, var(--color-magenta));
   }
 }
 

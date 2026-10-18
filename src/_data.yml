@@ -1,4 +1,5 @@
 layout: base.vto
+backdrop: synthwave
 navigation:
   - name: Home
     href: /
