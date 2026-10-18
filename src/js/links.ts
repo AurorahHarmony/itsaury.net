@@ -183,8 +183,140 @@ async function lockScreen() {
   }
 }
 
+// The QR code builds up like the holo art on the home page: coarse mosaic
+// blocks that sharpen level by level, each cell flashing as it resolves.
+// The canvas covers the real SVG, and the last level clears holes through to
+// it rather than painting a copy, so nothing shifts when the canvas goes away
+const qrBox = document.querySelector<HTMLElement>(".qr-svg");
+const QR_BUILD_MS = 700;
+// Modules per cell, coarse to fine; a last level reveals the crisp code
+const QR_BLOCKS = [8, 4, 2, 1];
+let qrBuild = 0;
+
+type QrCell = { x: number; y: number; w: number; h: number; th: number; color?: string };
+
+async function buildQr() {
+  const svg = qrBox?.querySelector("svg");
+  if (!qrBox || !svg || reducedMotion.matches) return;
+  const build = ++qrBuild;
+  const finish = () => {
+    if (build === qrBuild) qrBox.classList.remove("is-building");
+  };
+  qrBox.classList.add("is-building");
+
+  let canvas = qrBox.querySelector("canvas");
+  if (!canvas) {
+    canvas = document.createElement("canvas");
+    canvas.setAttribute("aria-hidden", "true");
+    qrBox.append(canvas);
+  }
+  const ctx = canvas.getContext("2d");
+  const size = Math.round(svg.getBoundingClientRect().width * Math.min(devicePixelRatio || 1, 2));
+  const grid = svg.viewBox.baseVal.width;
+  if (!ctx || !size || !grid) return finish();
+  canvas.width = canvas.height = size;
+  // Same background as the SVG's, hiding the code until cells reveal it
+  const bg = ctx.createLinearGradient(0, 0, size, size);
+  bg.addColorStop(0, "#170428");
+  bg.addColorStop(1, "#0b0016");
+  ctx.fillStyle = bg;
+  ctx.fillRect(0, 0, size, size);
+
+  const img = new Image();
+  img.src = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(new XMLSerializer().serializeToString(svg));
+  try {
+    await img.decode();
+  } catch {
+    return finish();
+  }
+  if (build !== qrBuild) return;
+
+  // Small render to average the mosaic blocks from
+  const PX = 4;
+  const small = document.createElement("canvas");
+  small.width = small.height = grid * PX;
+  const sctx = small.getContext("2d", { willReadFrequently: true })!;
+  sctx.drawImage(img, 0, 0, grid * PX, grid * PX);
+  const pixels = sctx.getImageData(0, 0, grid * PX, grid * PX).data;
+
+  const toPx = (m: number) => Math.round((Math.min(m, grid) * size) / grid);
+  const levelCount = QR_BLOCKS.length + 1;
+  const levels: QrCell[][] = [...QR_BLOCKS, 1].map((bs, k) => {
+    const ang = Math.random() * Math.PI * 2;
+    const cells: QrCell[] = [];
+    const n = Math.ceil(grid / bs);
+    for (let cy = 0; cy < n; cy++) {
+      for (let cx = 0; cx < n; cx++) {
+        const x0 = cx * bs;
+        const y0 = cy * bs;
+        const x1 = Math.min(x0 + bs, grid);
+        const y1 = Math.min(y0 + bs, grid);
+        const scan = ((x0 + x1) / 2 / grid - 0.5) * Math.cos(ang) + ((y0 + y1) / 2 / grid - 0.5) * Math.sin(ang) + 0.5;
+        const cell: QrCell = {
+          x: toPx(x0),
+          y: toPx(y0),
+          w: toPx(x1) - toPx(x0),
+          h: toPx(y1) - toPx(y0),
+          // Mostly random order with only a faint sweep, so levels don't
+          // read as separate directional wipes
+          th: (k / levelCount) * 0.75 + scan * 0.03 + Math.random() * 0.2,
+        };
+        if (k < QR_BLOCKS.length) {
+          let r = 0, g = 0, b = 0, count = 0;
+          for (let py = y0 * PX; py < y1 * PX; py++) {
+            for (let px = x0 * PX; px < x1 * PX; px++) {
+              const i = (py * grid * PX + px) * 4;
+              r += pixels[i];
+              g += pixels[i + 1];
+              b += pixels[i + 2];
+              count++;
+            }
+          }
+          cell.color = `rgb(${r / count | 0} ${g / count | 0} ${b / count | 0})`;
+        }
+        cells.push(cell);
+      }
+    }
+    return cells;
+  });
+
+  // Hairline gaps between mosaic cells give the blocks a pixel-grid look
+  const gap = Math.max(1, Math.round(size / 400));
+  const start = performance.now();
+  const step = (now: number) => {
+    if (build !== qrBuild) return;
+    const p = Math.min(1, (now - start) / QR_BUILD_MS);
+    ctx.fillStyle = bg;
+    ctx.fillRect(0, 0, size, size);
+    for (const cells of levels) {
+      for (const c of cells) {
+        if (p < c.th) continue;
+        if (c.color) {
+          ctx.fillStyle = c.color;
+          const g = c.w > gap * 4 ? gap : 0;
+          ctx.fillRect(c.x, c.y, c.w - g, c.h - g);
+        } else {
+          ctx.clearRect(c.x, c.y, c.w, c.h);
+        }
+      }
+    }
+    for (const cells of levels) {
+      for (const c of cells) {
+        const flash = 1 - (p - c.th) / 0.07;
+        if (p < c.th || flash <= 0) continue;
+        ctx.fillStyle = `rgb(190 250 255 / ${(flash * 0.7).toFixed(3)})`;
+        ctx.fillRect(c.x, c.y, c.w, c.h);
+      }
+    }
+    if (p < 1) requestAnimationFrame(step);
+    else finish();
+  };
+  requestAnimationFrame(step);
+}
+
 document.getElementById("qr-open")?.addEventListener("click", () => {
   dialog?.showModal();
+  buildQr();
   lockScreen();
 });
 document.getElementById("qr-close")?.addEventListener("click", () => dialog?.close());
